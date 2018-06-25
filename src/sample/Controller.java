@@ -10,6 +10,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.util.Duration;
 import org.omg.PortableInterceptor.DISCARDING;
 
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.*;
 
@@ -83,7 +84,7 @@ public class Controller implements Initializable{
 
         reverseShape(shape);
 
-        currShape = new CurrentShape(tetrisBoard.getX(),tetrisBoard.getY(),shape.getOffset(),shape.getRotate(),shape.getMidPoint(),shape.getPosition());
+        currShape = new CurrentShape(tetrisBoard.getX(),tetrisBoard.getY(),shape.getOffset(),shape.getRotate(),shape.getMidPoint(),shape.getPosition(), shape);
 
         currShape.addShape(shapeReverseStack);
 
@@ -347,8 +348,29 @@ public class Controller implements Initializable{
         }
 
 
+        int[][] curr, next;
 
-        // sett posisjon etter utførelse
+        if (currShape.getType() instanceof IShape) {
+            curr = shapePosition.getIShapeMap(currentPosition);
+            next = shapePosition.getIShapeMap(nextPosition);
+        } else {
+            curr = shapePosition.getRestShapeMap(currentPosition);
+            next = shapePosition.getRestShapeMap(nextPosition);
+        }
+
+        int[][] rotationTable = new int[5][2];
+
+        for (int i = 0; i < curr.length; i++) {
+
+            for (int j = 0; j < curr[0].length; j++) {
+
+                rotationTable[i][j] = curr[i][j] - next[i][j];
+            }
+        }
+
+        for (int[] b : rotationTable) {
+            System.out.println(Arrays.toString(b));
+        }
 
         if (currShape.canRotate()) {
 
@@ -367,6 +389,10 @@ public class Controller implements Initializable{
 
             reAddShape();
         }
+
+        // sett posisjon etter utførelse
+        currShape.setPosition(nextPosition);
+
 
         checkIfShapeCanContinue();
     }

@@ -24,8 +24,9 @@ public class CurrentShape {
     private boolean rotation;
     private int midtpointInteger;
     private Position position;
+    private Shape type;
 
-    public CurrentShape(int x, int y,int offset, boolean rotate, int midtpointInteger, Position position) {
+    public CurrentShape(int x, int y,int offset, boolean rotate, int midtpointInteger, Position position, Shape shapeType) {
         this.x = x - 1;
         this.y = y - 1;
         this.offset = offset;
@@ -36,6 +37,7 @@ public class CurrentShape {
         this.rotation = rotate;
         this.midtpointInteger = midtpointInteger;
         this.position = position;
+        this.type = shapeType;
     }
 
     public void addShape(Stack<int[]> shapeStack) {
@@ -43,6 +45,10 @@ public class CurrentShape {
         rowsNotAdded = shape.size();
         rows = shapeStack.size();
         columns = shapeStack.get(0).length;
+    }
+
+    public Shape getType() {
+        return type;
     }
 
     public void setLanded(boolean status) {
