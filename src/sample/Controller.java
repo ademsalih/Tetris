@@ -336,6 +336,15 @@ public class Controller implements Initializable{
         // sett posisjon etter utførelse
         currShape.setPosition(nextPosition);
 
+        if (currShape.hasLanded()) {
+
+            if (!touchingBottomWall()) {
+
+                currShape.setLanded(false);
+
+            }
+        }
+
         checkIfShapeCanContinue();
 
         time = System.currentTimeMillis() - time;
