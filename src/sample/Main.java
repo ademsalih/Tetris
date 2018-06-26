@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    static boolean pressed = false;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -18,21 +20,28 @@ public class Main extends Application {
 
         Scene scene = new Scene(root, 220,420);
 
+
+
         scene.setOnKeyPressed(event -> {
 
             if (event.getCode() == KeyCode.RIGHT) {
                 Controller.instance.goRight();
-
             } else if (event.getCode() == KeyCode.LEFT) {
                 Controller.instance.goLeft();
-            } else if (event.getCode() == KeyCode.X) {
+            } else if ((event.getCode() == KeyCode.X || event.getCode() == KeyCode.UP) && !pressed) {
+
+                pressed = true;
                 Controller.instance.rotateShape(Direction.ClockWise);
-            } else if (event.getCode() == KeyCode.Z) {
+
+            } else if (event.getCode() == KeyCode.Z && !pressed) {
+
+                pressed = true;
                 Controller.instance.rotateShape(Direction.CounterClockWise);
-            } else if (event.getCode() == KeyCode.UP) {
-                Controller.instance.rotateShape(Direction.ClockWise);
             }
         });
+
+        scene.setOnKeyReleased(event -> pressed = false);
+
 
         primaryStage.setScene(scene);
         primaryStage.show();
