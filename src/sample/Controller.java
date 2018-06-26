@@ -261,8 +261,6 @@ public class Controller implements Initializable{
 
     public void rotateShape(Direction direction) {
 
-        long time = System.currentTimeMillis();
-
         // nåværende posisjon lagres
         Position currentPosition = currShape.getPosition();
 
@@ -345,11 +343,7 @@ public class Controller implements Initializable{
             }
         }
 
-        checkIfShapeCanContinue();
-
-        time = System.currentTimeMillis() - time;
-
-        System.out.println(time + "ms");
+        //checkIfShapeCanContinue();
     }
 
     public ArrayList<int[]> cloneOf(ArrayList<int[]> shape) {
