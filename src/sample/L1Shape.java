@@ -55,7 +55,7 @@ public class L1Shape implements Shape {
 
     @Override
     public Position getPosition() {
-        return null;
+        return this.position;
     }
 
     @Override

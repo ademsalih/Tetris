@@ -27,11 +27,10 @@ public class ShapePosition {
         restShapeMap.put(Position.MID,new int[][]{{0,0},{0,0},{0,0},{0,0},{0,0}});
         restShapeMap.put(Position.LEFT,new int[][]{{0,0},{-1,0},{-1,-1},{0,2},{-1,2}});
 
-        iShapeMap.put(Position.START,new int[][]{{0,1},{0,1},{0,1},{0,-1},{-0,2}});
-        iShapeMap.put(Position.RIGHT,new int[][]{{0,0},{-1,0},{2,0},{-1,0},{2,0}});
-        iShapeMap.put(Position.MID,new int[][]{{-1,0},{0,0},{0,0},{0,1},{0,-2}});
-        iShapeMap.put(Position.LEFT,new int[][]{{-1,1},{1,1},{-2,1},{1,0},{-2,0}});
-
+        iShapeMap.put(Position.START,new int[][]{{0,0},{-1,0},{2,0},{-1,0},{2,0}});
+        iShapeMap.put(Position.RIGHT,new int[][]{{-1,0},{0,0},{0,0},{0,1},{0,-2}});
+        iShapeMap.put(Position.MID,new int[][]{{-1,1},{1,1},{-2,1},{1,0},{-2,0}});
+        iShapeMap.put(Position.LEFT,new int[][]{{0,1},{0,1},{0,1},{0,-1},{-0,2}});
     }
 
     public Position getNextRight(Position currentPosition) {

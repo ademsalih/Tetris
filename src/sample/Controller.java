@@ -61,11 +61,11 @@ public class Controller implements Initializable{
     // Random shapes are added to the tetris board PARAMETER: decimal value
     public void shapePlacement(int shapeCode) {
 
-        //Shape shape = null;
+        Shape shape = null;
 
-        Shape shape = new IShape();
+        //Shape shape = new TShape();
 
-        /*switch (shapeCode) {
+        switch (shapeCode) {
             case 0: shape = new BlockShape();
             break;
             case 1: shape = new IShape();
@@ -80,7 +80,7 @@ public class Controller implements Initializable{
             break;
             case 6: shape = new S2Shape();
             break;
-        }*/
+        }
 
         reverseShape(shape);
 
@@ -94,7 +94,7 @@ public class Controller implements Initializable{
 
     public void startAnimation(int speed) {
 
-        keyFrame = new KeyFrame(Duration.millis(speed), actionevent -> moveShape(900));
+        keyFrame = new KeyFrame(Duration.millis(speed), actionevent -> moveShape(1000));
 
         timeline = new Timeline(keyFrame);
 
@@ -259,81 +259,9 @@ public class Controller implements Initializable{
         return 0;
     }
 
-    /*public void rotateShape() {
-
-        if (currShape.canRotate()) {
-
-            if (true) {
-
-                removeShape();
-                currShape.rotate();
-                ///////////////////////////////////// UNDER CONSTRUCTION //////////////////////////////////////////
-
-                // Check if any shape is on the way
-
-                // Check if shape is outside on left
-                if (cellsOutsideOnLeft(currShape.get()) > 0) {
-
-                    int outsideOnLeft = cellsOutsideOnLeft(currShape.get()); // get number of cells outside
-
-                    currShape.rotateBack(); // roate back to original state
-
-                    if (!touchingAnotherShapeRight()) {
-                        reAddShape(); // add shape back to board
-
-                        for (int j = 0; j < outsideOnLeft; j++) {
-                            goRight(); // dont go right if there is something to the right
-                        }
-
-                        removeShape();
-                        currShape.rotate();
-                    }
-
-                }
-
-                // Check if shape is outside on right
-                if (cellsOutsideOnRight(currShape.get()) > 0) {
-
-                    int outsideOnRight = cellsOutsideOnRight(currShape.get());
-
-                    currShape.rotateBack();
-
-                    if (!touchingAnotherShapeLeft()) {
-                        reAddShape();
-
-                        for (int j = 0; j < outsideOnRight; j++) {
-                            goLeft();
-                        }
-
-                        removeShape();
-                        currShape.rotate();
-                    }
-
-                }
-
-                // Check if shape is outside on bottom
-
-                ///////////////////////////////////////////////////////////////////////////////////////////////////
-
-                reAddShape();
-            }
-
-        }
-
-        if (currShape.hasLanded()) {
-
-            if (!touchingBottomWall()) {
-
-                currShape.setLanded(false);
-
-            }
-        }
-
-
-        checkIfShapeCanContinue();
-    }*/
-
     public void rotateShape(Direction direction) {
+
+        long time = System.currentTimeMillis();
 
         // nåværende posisjon lagres
         Position currentPosition = currShape.getPosition();
@@ -346,7 +274,6 @@ public class Controller implements Initializable{
         } else {
             nextPosition = shapePosition.getNextLeft(currentPosition);
         }
-
 
         int[][] curr, next;
 
@@ -368,23 +295,39 @@ public class Controller implements Initializable{
             }
         }
 
-        for (int[] b : rotationTable) {
-            System.out.println(Arrays.toString(b));
-        }
-
         if (currShape.canRotate()) {
-
             removeShape();
-            currShape.rotate();
+
+            ArrayList<int[]> beforeRotation = cloneOf(currShape.get());
+
+            if (direction == Direction.ClockWise) {
+                currShape.rotate();
+            } else {
+                currShape.rotateBack();
+            }
+
+            ArrayList<int[]> beforeKick = cloneOf(currShape.get());
+
+            kick(currShape.get(),rotationTable[0][0],rotationTable[0][1]);
 
             if (misplacedCells(currShape.get()) > 0) {
-                System.out.println("MISPLACED");
 
-                if (!shapeCanKick(currShape.get())) {
-                    System.out.println("Rotating back...");
-                    currShape.rotateBack();
+                currShape.set(cloneOf(beforeKick));
+
+                for (int i = 1; i < rotationTable.length; i++) {
+
+                    kick(currShape.get(),rotationTable[i][0],rotationTable[i][1]);
+
+                    if (misplacedCells(currShape.get()) == 0) {
+                        break;
+                    } else {
+                        if (i == rotationTable.length - 1) {
+                            currShape.set(cloneOf(beforeRotation));
+                        } else {
+                            currShape.set(cloneOf(beforeKick));
+                        }
+                    }
                 }
-
             }
 
             reAddShape();
@@ -393,14 +336,43 @@ public class Controller implements Initializable{
         // sett posisjon etter utførelse
         currShape.setPosition(nextPosition);
 
-
         checkIfShapeCanContinue();
+
+        time = System.currentTimeMillis() - time;
+
+        System.out.println(time + "ms");
     }
 
-    public boolean shapeCanKick(ArrayList<int[]> shape) {
+    public ArrayList<int[]> cloneOf(ArrayList<int[]> shape) {
 
+        ArrayList<int[]> clone = new ArrayList<>();
 
-        return false;
+        for (int i = 0; i < shape.size(); i++) {
+
+            int[] b = shape.get(i);
+
+            int[] a = new int[b.length];
+
+            a[0] = b[0];
+            a[1] = b[1];
+
+            clone.add(a);
+        }
+
+        return clone;
+    }
+
+    public void kick(ArrayList<int[]> shape, int x, int y) {
+
+        for (int i = 0; i < shape.size(); i++) {
+
+            int[] tmp = shape.get(i);
+
+            tmp[0]+=x;
+            tmp[1]+=-y;
+
+            shape.set(i,tmp);
+        }
     }
 
     public int misplacedCells(ArrayList<int[]> shape) {
@@ -420,8 +392,6 @@ public class Controller implements Initializable{
 
         return misplacedCells;
     }
-
-
 
     public boolean touchingBottomWall() {
 

@@ -84,6 +84,7 @@ public class CurrentShape {
         }
     }
 
+
     public boolean hasLanded() {
         return landed;
     }
@@ -328,6 +329,10 @@ public class CurrentShape {
 
     public ArrayList<int[]> get() {
         return list;
+    }
+
+    public void set(ArrayList<int[]> shape) {
+        this.list = shape;
     }
 
     public int getColor() {
