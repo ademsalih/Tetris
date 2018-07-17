@@ -25,8 +25,9 @@ public class CurrentShape {
     private int midtpointInteger;
     private Position position;
     private Shape type;
+    private long lockDelay;
 
-    public CurrentShape(int x, int y,int offset, boolean rotate, int midtpointInteger, Position position, Shape shapeType) {
+    public CurrentShape(int x, int y,int offset, boolean rotate, int midtpointInteger, Position position, Shape shapeType, int lockDelay) {
         this.x = x - 1;
         this.y = y - 1;
         this.offset = offset;
@@ -38,6 +39,7 @@ public class CurrentShape {
         this.midtpointInteger = midtpointInteger;
         this.position = position;
         this.type = shapeType;
+        this.lockDelay = lockDelay;
     }
 
     public void addShape(Stack<int[]> shapeStack) {
@@ -45,6 +47,14 @@ public class CurrentShape {
         rowsNotAdded = shape.size();
         rows = shapeStack.size();
         columns = shapeStack.get(0).length;
+    }
+
+    public long getLockDelay() {
+        return this.lockDelay;
+    }
+
+    public void setLockDelay(long time) {
+        this.lockDelay = time;
     }
 
     public Shape getType() {
@@ -60,19 +70,15 @@ public class CurrentShape {
         if (rowsNotAdded < rows) {
 
             for (int[] a : list) {
-
-                if (a[1] + 1 == y) {
-
-                    landed = true;
-                }
-
                 a[1] += 1;
             }
         }
 
         // mens figuren legges inn
         if (rowsNotAdded > 0) {
+
             int[] row = shape.pop();
+
             for (int i = 0; i < row.length; i++) {
 
                 if (row[i] > 0) {
@@ -325,6 +331,10 @@ public class CurrentShape {
 
     public boolean canRotate() {
         return this.rotation;
+    }
+
+    public void setRotation(boolean val) {
+        this.rotation = val;
     }
 
     public ArrayList<int[]> get() {

@@ -9,7 +9,6 @@ import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.util.Duration;
 import org.omg.PortableInterceptor.DISCARDING;
-
 import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.*;
@@ -28,6 +27,16 @@ public class Controller implements Initializable{
     Timer timer;
 
     ShapePosition shapePosition;
+    int i = 0;
+
+    /*
+    * if not touching bottom wall or other shape at bottom, keep going
+    * if touching stop moving and start counting down for next shape
+    * if a move is done while waiting, check if shape can continue now
+    * if yes
+    *
+    *
+    * */
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -42,9 +51,58 @@ public class Controller implements Initializable{
         tetrisBoard.drawTetrisField();
 
 
+        //test2();
+
+
         newShape();
 
-        startAnimation(220);
+        startAnimation(200);
+    }
+
+    public void test1() {
+        tetrisBoard.cellOn(9,19);
+        tetrisBoard.cellOn(9,18);
+        tetrisBoard.cellOn(9,17);
+        tetrisBoard.cellOn(9,16);
+        tetrisBoard.cellOn(9,15);
+
+        tetrisBoard.cellOn(8,19);
+        tetrisBoard.cellOn(8,18);
+        tetrisBoard.cellOn(8,17);
+        tetrisBoard.cellOn(8,16);
+        tetrisBoard.cellOn(8,15);
+        tetrisBoard.cellOn(7,15);
+
+        tetrisBoard.cellOn(6,19);
+        tetrisBoard.cellOn(6,18);
+        tetrisBoard.cellOn(6,17);
+
+        tetrisBoard.cellOn(5,19);
+        tetrisBoard.cellOn(5,18);
+
+        tetrisBoard.cellOn(4,19);
+        tetrisBoard.cellOn(4,18);
+        tetrisBoard.cellOn(4,17);
+    }
+
+    public void test2() {
+        tetrisBoard.cellOn(9,19);
+        tetrisBoard.cellOn(9,18);
+        tetrisBoard.cellOn(9,17);
+        tetrisBoard.cellOn(9,16);
+
+        tetrisBoard.cellOn(8,19);
+        tetrisBoard.cellOn(7,19);
+
+        tetrisBoard.cellOn(2,19);
+        tetrisBoard.cellOn(2,18);
+        tetrisBoard.cellOn(2,17);
+
+        tetrisBoard.cellOn(3,18);
+        tetrisBoard.cellOn(3,17);
+        tetrisBoard.cellOn(4,17);
+
+        tetrisBoard.cellOn(3,19);
     }
 
     public void newShape () {
@@ -54,7 +112,7 @@ public class Controller implements Initializable{
     // Method that return a random integer
     public int getRandomInt(int limit) {
 
-        Random random = new Random(System.currentTimeMillis());
+        Random random = new Random();
         return random.nextInt(limit);
     }
 
@@ -63,7 +121,7 @@ public class Controller implements Initializable{
 
         Shape shape = null;
 
-        //Shape shape = new TShape();
+        //Shape shape = new IShape();
 
         switch (shapeCode) {
             case 0: shape = new BlockShape();
@@ -84,17 +142,18 @@ public class Controller implements Initializable{
 
         reverseShape(shape);
 
-        currShape = new CurrentShape(tetrisBoard.getX(),tetrisBoard.getY(),shape.getOffset(),shape.getRotate(),shape.getMidPoint(),shape.getPosition(), shape);
+        currShape = new CurrentShape(tetrisBoard.getX(),tetrisBoard.getY(),
+                shape.getOffset(),shape.getRotate(),shape.getMidPoint(),
+                shape.getPosition(), shape, 300);
 
         currShape.addShape(shapeReverseStack);
 
         currShape.setColor(shape.getColorCode());
     }
 
-
     public void startAnimation(int speed) {
 
-        keyFrame = new KeyFrame(Duration.millis(speed), actionevent -> moveShape(1000));
+        keyFrame = new KeyFrame(Duration.millis(speed), e -> moveShape());
 
         timeline = new Timeline(keyFrame);
 
@@ -103,28 +162,38 @@ public class Controller implements Initializable{
         timeline.play();
     }
 
-    public void moveShape(int shapeDelay) {
+    public void moveShape() {
+        //System.out.println("moveShape");
 
-        // koden som utføres skal oppi her
+        /*i++;
+
+        if (i == 19) {
+            rotateShape(Direction.ClockWise);
+        }*/
+
         if (!currShape.hasLanded()) {
+            removeShape();
+            currShape.goOneDown();
+            reAddShape();
 
-            if (!touchingAnotherShapeBottom()) {
-                removeShape();
-                currShape.goOneDown();
-                reAddShape();
-            } else {
-
-                initiateNewPlacementWithDelay(shapeDelay);
-            }
-
+            checkIfLanded();
         } else {
 
-            initiateNewPlacementWithDelay(shapeDelay);
+            newPlacementWithDelay(3000);
         }
 
     }
 
-    public void initiateNewPlacementWithDelay(int milliseconds) {
+    public void checkIfLanded() {
+
+        if (touchingAnotherShapeBottom() || touchingBottomWall()) {
+            currShape.setLanded(true);
+        } else {
+            currShape.setLanded(false);
+        }
+    }
+
+    public void newPlacementWithDelay(int ms) {
 
         timeline.pause();
 
@@ -135,8 +204,6 @@ public class Controller implements Initializable{
             @Override
             public void run() {
 
-                currShape.freeze();
-
                 newShape();
                 timeline.play();
                 timer.cancel();
@@ -144,13 +211,16 @@ public class Controller implements Initializable{
 
         };
 
-        timer.schedule(timerTask, milliseconds);
+        timer.schedule(timerTask, ms);
     }
 
     public void cancelNewPlacement() {
 
+        //System.out.println("cancelNewPlacement");
+
         if (timer != null) {
             timer.cancel();
+            timer = null;
         }
     }
 
@@ -167,10 +237,18 @@ public class Controller implements Initializable{
 
     public void checkIfShapeCanContinue() {
 
+        //System.out.println("checkIfShapeCanContinue");
+
         if (!touchingAnotherShapeBottom() && !touchingBottomWall()) {
+
+            currShape.setLanded(false);
+
             cancelNewPlacement();
+
             timeline.play();
+
         }
+
     }
 
     public void goLeft() {
@@ -183,6 +261,8 @@ public class Controller implements Initializable{
                 reAddShape();
             }
         }
+
+        checkIfLanded();
 
         checkIfShapeCanContinue();
     }
@@ -198,6 +278,8 @@ public class Controller implements Initializable{
 
             }
         }
+
+        checkIfLanded();
 
         checkIfShapeCanContinue();
     }
@@ -259,41 +341,51 @@ public class Controller implements Initializable{
         return 0;
     }
 
+
     public void rotateShape(Direction direction) {
+        i++;
 
-        // nåværende posisjon lagres
-        Position currentPosition = currShape.getPosition();
+        if (i == 2) {
 
-        Position nextPosition;
-
-        // ønsket posisjon blir satt
-        if (direction == Direction.ClockWise) {
-            nextPosition = shapePosition.getNextRight(currentPosition);
-        } else {
-            nextPosition = shapePosition.getNextLeft(currentPosition);
         }
 
-        int[][] curr, next;
-
-        if (currShape.getType() instanceof IShape) {
-            curr = shapePosition.getIShapeMap(currentPosition);
-            next = shapePosition.getIShapeMap(nextPosition);
-        } else {
-            curr = shapePosition.getRestShapeMap(currentPosition);
-            next = shapePosition.getRestShapeMap(nextPosition);
-        }
-
-        int[][] rotationTable = new int[5][2];
-
-        for (int i = 0; i < curr.length; i++) {
-
-            for (int j = 0; j < curr[0].length; j++) {
-
-                rotationTable[i][j] = curr[i][j] - next[i][j];
-            }
-        }
+        //System.out.println("rotateShape");
 
         if (currShape.canRotate()) {
+
+            // nåværende posisjon lagres
+            Position currentPosition = currShape.getPosition();
+
+            Position nextPosition;
+
+            // ønsket posisjon blir satt
+            if (direction == Direction.ClockWise) {
+                nextPosition = shapePosition.getNextRight(currentPosition);
+            } else {
+                nextPosition = shapePosition.getNextLeft(currentPosition);
+            }
+
+            int[][] curr, next;
+
+            if (currShape.getType() instanceof IShape) {
+                curr = shapePosition.getIShapeMap(currentPosition);
+                next = shapePosition.getIShapeMap(nextPosition);
+            } else {
+                curr = shapePosition.getRestShapeMap(currentPosition);
+                next = shapePosition.getRestShapeMap(nextPosition);
+            }
+
+            int[][] rotationTable = new int[5][2];
+
+            for (int i = 0; i < curr.length; i++) {
+
+                for (int j = 0; j < curr[0].length; j++) {
+
+                    rotationTable[i][j] = curr[i][j] - next[i][j];
+                }
+            }
+
+
             removeShape();
 
             ArrayList<int[]> beforeRotation = cloneOf(currShape.get());
@@ -310,6 +402,8 @@ public class Controller implements Initializable{
 
             if (misplacedCells(currShape.get()) > 0) {
 
+                System.out.println("Miss: " + misplacedCells(currShape.get()));
+
                 currShape.set(cloneOf(beforeKick));
 
                 for (int i = 1; i < rotationTable.length; i++) {
@@ -321,6 +415,7 @@ public class Controller implements Initializable{
                     } else {
                         if (i == rotationTable.length - 1) {
                             currShape.set(cloneOf(beforeRotation));
+                            currShape.setRotation(false);
                         } else {
                             currShape.set(cloneOf(beforeKick));
                         }
@@ -329,21 +424,13 @@ public class Controller implements Initializable{
             }
 
             reAddShape();
+
+            currShape.setPosition(nextPosition);
         }
 
-        // sett posisjon etter utførelse
-        currShape.setPosition(nextPosition);
+        checkIfLanded();
 
-        if (currShape.hasLanded()) {
-
-            if (!touchingBottomWall()) {
-
-                currShape.setLanded(false);
-
-            }
-        }
-
-        //checkIfShapeCanContinue();
+        checkIfShapeCanContinue();
     }
 
     public ArrayList<int[]> cloneOf(ArrayList<int[]> shape) {
@@ -533,8 +620,5 @@ public class Controller implements Initializable{
 
         return active;
     }
-
-
-
 
 }

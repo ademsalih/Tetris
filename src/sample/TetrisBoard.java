@@ -74,14 +74,24 @@ public class TetrisBoard {
     // Turn on individual cell at x and y and specify color
     public void cellOn(int x, int y, int colorCode) {
 
-        board[x][y] = colorCode;
+        try {
+            board[x][y] = colorCode;
+        } catch (ArrayIndexOutOfBoundsException aioobe) {
+            //System.out.println("Cannot turn cell on");
+        }
+
         drawTetrisField();
     }
 
     // Turn off cell at x and y
     public void cellOff(int x, int y) {
 
-        board[x][y] = 0;
+        try {
+            board[x][y] = 0;
+        } catch (ArrayIndexOutOfBoundsException aioobe) {
+            //System.out.println("Cannot turn cell off");
+        }
+
         drawTetrisField();
     }
 
