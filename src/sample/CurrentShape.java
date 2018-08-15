@@ -25,9 +25,9 @@ public class CurrentShape {
     private int midtpointInteger;
     private Position position;
     private Shape type;
-    private long lockDelay;
 
-    public CurrentShape(int x, int y,int offset, boolean rotate, int midtpointInteger, Position position, Shape shapeType, int lockDelay) {
+
+    public CurrentShape(int x, int y,int offset, boolean rotate, int midtpointInteger, Position position, Shape shapeType) {
         this.x = x - 1;
         this.y = y - 1;
         this.offset = offset;
@@ -39,7 +39,6 @@ public class CurrentShape {
         this.midtpointInteger = midtpointInteger;
         this.position = position;
         this.type = shapeType;
-        this.lockDelay = lockDelay;
     }
 
     public void addShape(Stack<int[]> shapeStack) {
@@ -47,18 +46,6 @@ public class CurrentShape {
         rowsNotAdded = shape.size();
         rows = shapeStack.size();
         columns = shapeStack.get(0).length;
-    }
-
-    public long getLockDelay() {
-        return this.lockDelay;
-    }
-
-    public void setLockDelay(long time) {
-        this.lockDelay = time;
-    }
-
-    public Shape getType() {
-        return type;
     }
 
     public void setLanded(boolean status) {
@@ -70,15 +57,19 @@ public class CurrentShape {
         if (rowsNotAdded < rows) {
 
             for (int[] a : list) {
+
+                if (a[1] + 1 == y) {
+
+                    landed = true;
+                }
+
                 a[1] += 1;
             }
         }
 
         // mens figuren legges inn
         if (rowsNotAdded > 0) {
-
             int[] row = shape.pop();
-
             for (int i = 0; i < row.length; i++) {
 
                 if (row[i] > 0) {
@@ -89,7 +80,6 @@ public class CurrentShape {
             rowsNotAdded--;
         }
     }
-
 
     public boolean hasLanded() {
         return landed;
@@ -333,16 +323,8 @@ public class CurrentShape {
         return this.rotation;
     }
 
-    public void setRotation(boolean val) {
-        this.rotation = val;
-    }
-
     public ArrayList<int[]> get() {
         return list;
-    }
-
-    public void set(ArrayList<int[]> shape) {
-        this.list = shape;
     }
 
     public int getColor() {
@@ -361,5 +343,16 @@ public class CurrentShape {
         this.position = position;
     }
 
+    public Shape getType() {
+        return this.type;
+    }
+
+    public void set(ArrayList<int[]> shape) {
+        this.list = shape;
+    }
+
+    public void setRotation(boolean val) {
+        this.rotation = val;
+    }
 
 }

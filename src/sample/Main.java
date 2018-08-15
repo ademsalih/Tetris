@@ -37,10 +37,28 @@ public class Main extends Application {
 
                 pressed = true;
                 Controller.instance.rotateShape(Direction.CounterClockWise);
+            } else if (event.getCode() == KeyCode.DOWN) {
+
+                /*if (Controller.instance.currShape.hasLanded()) {
+                    Controller.instance.newShape();
+                }*/
+
+                    Controller.instance.speedUp();
+            } else if (event.getCode() == KeyCode.SPACE) {
+                Controller.instance.instantDrop();
+            } else if (event.getCode() == KeyCode.L) {
+                Controller.instance.printRemovableLines();
             }
+
         });
 
-        scene.setOnKeyReleased(event -> pressed = false);
+
+        scene.setOnKeyReleased(event -> {
+            pressed = false;
+            if (event.getCode() == KeyCode.DOWN) {
+                Controller.instance.speedDown();
+            }
+        });
 
 
         primaryStage.setScene(scene);

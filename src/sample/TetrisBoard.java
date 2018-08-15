@@ -25,6 +25,10 @@ public class TetrisBoard {
         this.board = new int[x][y];
     }
 
+    public int[][] getBoard() {
+        return this.board;
+    }
+
     // Draw board using the integer board
     public void drawTetrisField() {
 
