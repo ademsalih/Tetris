@@ -324,8 +324,6 @@ public class Controller implements Initializable{
 
         for (int k = 0; k < lines.size(); k++) {
 
-            System.out.println(lines.get(k));
-
             int destinationLine = lines.get(k);
             int sourceLine = destinationLine - 1;
 
