@@ -34,6 +34,8 @@ public class TetrisBoard {
     // Draw board using the integer board
     public void drawTetrisField() {
 
+        long time = System.currentTimeMillis();
+
         for(int i = 0; i < y; i++) {
 
             for(int j = 0; j < x; j++) {
@@ -56,7 +58,10 @@ public class TetrisBoard {
                     //middle
                     graphicsContext.setFill(colorMapMidTone.get(colorCode));
 
-                    graphicsContext.fillRect(4+xSpace,4+ySpace,12,12);
+                    double offset = tileSize*0.2;
+                    double smallSquare = tileSize*0.6;
+
+                    graphicsContext.fillRect(offset+xSpace,offset+ySpace,smallSquare,smallSquare);
                 }
 
 
@@ -68,6 +73,10 @@ public class TetrisBoard {
             ySpace+=tileSize;
         }
         ySpace=0;
+
+        time = System.currentTimeMillis() - time;
+
+        System.out.println(time);
     }
 
     // Set color according to color code at x and y
