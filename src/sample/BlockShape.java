@@ -5,7 +5,7 @@ public class BlockShape implements Shape {
     private int rowCount;
     private Position position = Position.START;
     private final int offset = 4;
-    private final int colorCode = 5;
+    private final int colorCode = 4;
     private final boolean rotate = false;
     private final int midPoint = 0;
 

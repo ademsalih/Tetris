@@ -15,7 +15,9 @@ public class TetrisBoard {
     private double ySpace;
     private GraphicsContext graphicsContext;
     private int[][] board;
-    public HashMap<Integer,Color> colorMap = new HashMap<Integer, Color>();
+    public HashMap<Integer,Color> colorMapLight = new HashMap<Integer, Color>();
+    public HashMap<Integer,Color> colorMapMidTone = new HashMap<Integer, Color>();
+    public HashMap<Integer,Color> colorMapDark = new HashMap<Integer, Color>();
 
     public TetrisBoard(Canvas canvas, double tileSize) {
         this.graphicsContext = canvas.getGraphicsContext2D();
@@ -36,11 +38,33 @@ public class TetrisBoard {
 
             for(int j = 0; j < x; j++) {
 
-                changeColorCode(j,i);
+                int colorCode = getColorCode(j,i);
 
+                graphicsContext.setFill(colorMapLight.get(colorCode));
                 graphicsContext.fillRect(xSpace,ySpace,tileSize,tileSize);
-                graphicsContext.strokeRect(xSpace,ySpace,tileSize,tileSize);
 
+
+                if (colorCode != 0) {
+                    // dark
+                    graphicsContext.setFill(colorMapDark.get(colorCode));
+
+                    double[] x = {xSpace,xSpace+tileSize,xSpace+tileSize};
+                    double[] y = {ySpace+tileSize,ySpace,ySpace+tileSize};
+
+                    graphicsContext.fillPolygon(x,y,3);
+
+                    //middle
+                    graphicsContext.setFill(colorMapMidTone.get(colorCode));
+
+                    double offset = tileSize*0.2;
+                    double smallSquare = tileSize*0.6;
+
+                    graphicsContext.fillRect(offset+xSpace,offset+ySpace,smallSquare,smallSquare);
+                }
+
+
+                graphicsContext.strokeRect(xSpace,ySpace,tileSize,tileSize);
+                ///////////////////////////////////////////////////////////////////
                 xSpace+=tileSize;
             }
             xSpace=0;
@@ -50,22 +74,42 @@ public class TetrisBoard {
     }
 
     // Set color according to color code at x and y
-    public void changeColorCode(int x, int y) {
-        int colorCode = board[x][y];
-        graphicsContext.setFill(colorMap.get(colorCode));
+    public int getColorCode(int x, int y) {
+        return board[x][y];
     }
 
     // Associate int values to colors by putting entries in HashMap
     public void assignColors() {
 
-        colorMap.put(0,new Color(0.1,0.1,0.1,1.0));  // Default color (off)
-        colorMap.put(1,new Color(1.0,0.0,0.0, 1.0));
-        colorMap.put(2,new Color(0.0,1.0,0.0, 1.0));
-        colorMap.put(3,new Color(0.2,0.4,0.95, 1.0));
-        colorMap.put(4,new Color(1.0,0.55,0.0, 1.0));
-        colorMap.put(5,new Color(0.3,0.8,0.9, 1.0));
-        colorMap.put(6,new Color(1.0,0.9,0.1, 1.0));
-        colorMap.put(7,new Color(0.5,0.0,0.8, 1.0));
+        // Normal colors
+        colorMapLight.put(0,new Color(0.1,0.1,0.1,1.0));  // Default color (off)
+
+        // Light colors
+        colorMapLight.put(1,new Color(0.6,0.988,1.0, 1.0));
+        colorMapLight.put(2,new Color(0.318,0.467,0.969, 1.0));
+        colorMapLight.put(3,new Color(0.988,0.753,0.357, 1.0));
+        colorMapLight.put(4,new Color(1.0,0.992,0.22, 1.0));
+        colorMapLight.put(5,new Color(0.506,1.0,0.529, 1.0));
+        colorMapLight.put(6,new Color(0.902,0.396,0.949, 1.0));
+        colorMapLight.put(7,new Color(0.91,0.427,0.427, 1.0));
+
+        // Mid Tone Colors
+        colorMapMidTone.put(1,new Color(0.082,0.969,1.0, 1.0));
+        colorMapMidTone.put(2,new Color(0.106,0.302,0.957, 1.0));
+        colorMapMidTone.put(3,new Color(0.953,0.62,0.055, 1.0));
+        colorMapMidTone.put(4,new Color(0.922,0.914,0.082, 1.0));
+        colorMapMidTone.put(5,new Color(0.106,0.957,0.145, 1.0));
+        colorMapMidTone.put(6,new Color(0.769,0.118,0.831, 1.0));
+        colorMapMidTone.put(7,new Color(0.851,0.149,0.149, 1.0));
+
+        // Dark Colors
+        colorMapDark.put(1,new Color(0.043,0.78,0.804, 1.0));
+        colorMapDark.put(2,new Color(0.02,0.157,0.62, 1.0));
+        colorMapDark.put(3,new Color(0.718,0.467,0.039, 1.0));
+        colorMapDark.put(4,new Color(0.718,0.71,0.02, 1.0));
+        colorMapDark.put(5,new Color(0.055,0.729,0.086, 1.0));
+        colorMapDark.put(6,new Color(0.431,0.02,0.471, 1.0));
+        colorMapDark.put(7,new Color(0.62,0.09,0.09, 1.0));
     }
 
     // Turn on individual cell at x and y

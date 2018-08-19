@@ -5,7 +5,7 @@ public class S1Shape implements Shape {
     private int rowCount;
     private Position position = Position.START;
     private final int offset = 3;
-    private final int colorCode = 3;
+    private final int colorCode = 5;
     private final boolean rotate = true;
     private final int midPoint = 1;
 
