@@ -4,12 +4,13 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TetrisBoard {
 
     private final int x = 10;
-    private final int y = 20;
+    private final int y = 22;
     private double tileSize;
     private double xSpace;
     private double ySpace;
@@ -33,6 +34,8 @@ public class TetrisBoard {
 
     // Draw board using the integer board
     public void drawTetrisField() {
+
+
 
         for(int i = 0; i < y; i++) {
 
@@ -71,6 +74,11 @@ public class TetrisBoard {
             ySpace+=tileSize;
         }
         ySpace=0;
+
+
+        graphicsContext.setStroke(new Color(0.25,0.25,0.25,1.0));
+        graphicsContext.strokeRect(0,40,200,440);
+        graphicsContext.setStroke(Color.BLACK);
     }
 
     // Set color according to color code at x and y
@@ -78,11 +86,28 @@ public class TetrisBoard {
         return board[x][y];
     }
 
+    public Color getColorFromCode(int code) {
+        Color color = colorMapMidTone.get(code);
+        return color;
+    }
+
+    public HashMap<Integer,Color> getColorMapLight() {
+        return colorMapLight;
+    }
+
+    public HashMap<Integer,Color> getColorMapMidTone() {
+        return colorMapMidTone;
+    }
+
+    public HashMap<Integer,Color> getColorMapDark() {
+        return colorMapDark;
+    }
+
     // Associate int values to colors by putting entries in HashMap
     public void assignColors() {
 
         // Normal colors
-        colorMapLight.put(0,new Color(0.1,0.1,0.1,1.0));  // Default color (off)
+        colorMapLight.put(0,new Color(0.08,0.08,0.08,1.0));  // Default color (off)
 
         // Light colors
         colorMapLight.put(1,new Color(0.6,0.988,1.0, 1.0));
@@ -112,6 +137,14 @@ public class TetrisBoard {
         colorMapDark.put(7,new Color(0.62,0.09,0.09, 1.0));
     }
 
+    public void clearBoard() {
+        for (int i = 0; i < y; i++) {
+            for (int j = 0; j < x; j++) {
+                cellOff(j,i);
+            }
+        }
+    }
+
     // Turn on individual cell at x and y
     public void cellOn(int x, int y) {
 
@@ -131,6 +164,17 @@ public class TetrisBoard {
         drawTetrisField();
     }
 
+    public void cellOnNoUpdateBoard(int x, int y, int colorCode) {
+
+        try {
+            board[x][y] = colorCode;
+        } catch (ArrayIndexOutOfBoundsException aioobe) {
+            //System.out.println("Cannot turn cell on");
+        }
+
+    }
+
+
     // Turn off cell at x and y
     public void cellOff(int x, int y) {
 
@@ -143,6 +187,16 @@ public class TetrisBoard {
         drawTetrisField();
     }
 
+    public void cellOffNoUpdateBoard(int x, int y) {
+
+        try {
+            board[x][y] = 0;
+        } catch (ArrayIndexOutOfBoundsException aioobe) {
+            //System.out.println("Cannot turn cell off");
+        }
+
+    }
+
     public int getX() {
         return this.x;
     }
@@ -151,6 +205,7 @@ public class TetrisBoard {
         return this.y;
     }
 
+    /////////////////////////////////////////////////////////////
     public boolean cellIsOn(int x, int y) {
 
         if (isInBoard(x,y)) {
@@ -161,10 +216,12 @@ public class TetrisBoard {
 
         return false;
     }
+    //////////////////////////////////////////////////////////////
+
 
     public boolean isInBoard(int x, int y) {
 
-        if (x > -1 && x < 10 && y > -1 && y < 20) {
+        if (x > -1 && x < this.x && y > -1 && y < this.y) {
             return true;
         }
 
@@ -180,7 +237,7 @@ public class TetrisBoard {
     }
 
     public int boardBottomDifference(int y) {
-        return 19 - x;
+        return 21 - x;
     }
 
     public void printTetrisBoard() {

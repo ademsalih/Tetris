@@ -1,20 +1,22 @@
-package sample;
+package sample.Shapes;
 
-public class L2Shape implements Shape {
+import sample.Position;
+
+public class BlockShape implements Shape {
 
     private int rowCount;
     private Position position = Position.START;
-    private final int offset = 3;
-    private final int colorCode = 3;
-    private final boolean rotate = true;
-    private final int midPoint = 1;
+    private final int offset = 4;
+    private final int colorCode = 4;
+    private final boolean rotate = false;
+    private final int midPoint = 0;
 
     private final int[][] shape = {
-            {0,0,2},
-            {2,2,2}
+            {2,2},
+            {2,2}
     };
 
-    public L2Shape() {
+    public BlockShape() {
         this.rowCount = 0;
     }
 
@@ -61,6 +63,11 @@ public class L2Shape implements Shape {
     @Override
     public void setPosition(Position pos) {
         this.position = pos;
+    }
+
+    @Override
+    public int[][] getShape() {
+        return shape;
     }
 
 }

@@ -3,29 +3,53 @@ package sample;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import sample.Shapes.*;
+
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class Controller implements Initializable{
 
-    Timer timer;
-    Timeline timeline;
-    KeyFrame keyFrame;
-    @FXML Canvas canvas;
-    CurrentShape currShape;
-    TetrisBoard tetrisBoard;
-    ShapePosition shapePosition;
-    Stack<int[]> shapeReverseStack;
+    public Timer timer;
+    public Timeline timeline;
+    public KeyFrame keyFrame;
+    public @FXML Canvas canvas;
+    public @FXML Canvas nextCanvas;
+    public CurrentShape currShape;
+    public TetrisBoard tetrisBoard;
+    public ShapePosition shapePosition;
+    public Stack<int[]> shapeReverseStack;
+
+    public int nextShapeCode;
+    public GraphicsContext gc;
+    public int goingToBoardCode;
+    public boolean gameOver = true;
     public static Controller instance;
+    public boolean instantDropExecuted = false;
+
+    public NextShapeField nextShapeField;
+    public @FXML Button startButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         instance = this;
+        gameInit();
+    }
+
+    public void gameInit() {
+        nextShapeCode = -1;
+
+        gc = nextCanvas.getGraphicsContext2D();
+        gameOver = false;
 
         tetrisBoard = new TetrisBoard(canvas,20.0);
         shapePosition = new ShapePosition();
@@ -33,18 +57,64 @@ public class Controller implements Initializable{
         tetrisBoard.assignColors();
         tetrisBoard.drawTetrisField();
 
-        newShape();
+        /*for (int i = 0; i < 9; i++) {
+            tetrisBoard.cellOn(i,5,2);
+        }*/
 
-        startAnimation(1000);
+        nextShapeField = new NextShapeField(nextCanvas,20);
+        nextShapeField.assignColor(tetrisBoard.getColorMapLight(),tetrisBoard.getColorMapMidTone(),tetrisBoard.getColorMapDark());
+        nextShapeField.emptyField();
+
+        keyFrame = new KeyFrame(Duration.millis(600), e -> moveShape());
+        timeline = new Timeline(keyFrame);
+        timeline.setCycleCount(Animation.INDEFINITE);
     }
 
     /**
      * Check for lines to be removed and brings a new shape to board.
      */
-    public void newShape () {
+    public void newShape() {
+        System.out.println("newShape");
 
-        removeLines(removableLines(tetrisBoard.getBoard()),tetrisBoard.getBoard());
-        placeShape(getRandomInt(7));
+        if (nextShapeCode < 0) {
+            nextShapeCode = getRandomInt(7);
+        }
+
+        goingToBoardCode = nextShapeCode;
+
+        nextShapeCode = getRandomInt(7);
+        setNextShape(nextShapeCode);
+
+        placeShape(goingToBoardCode);
+    }
+
+    public void setNextShape(int shapeCode) {
+        System.out.println("next shape was set to: " + shapeCode);
+
+        Shape shape = shapeFactory(shapeCode);
+
+        nextShapeField.setShape(shape.getShape(),shape.getColorCode());
+    }
+
+    public Shape shapeFactory(int shapeCode) {
+        Shape shape = null;
+        switch (shapeCode) {
+            case 0: shape = new BlockShape();
+                break;
+            case 1: shape = new IShape();
+                break;
+            case 2: shape = new TShape();
+                break;
+            case 3: shape = new L1Shape();
+                break;
+            case 4: shape = new L2Shape();
+                break;
+            case 5: shape = new S1Shape();
+                break;
+            case 6: shape = new S2Shape();
+                break;
+        }
+        return shape;
     }
 
     /**
@@ -52,7 +122,7 @@ public class Controller implements Initializable{
      * @param limit
      */
     public int getRandomInt(int limit) {
-
+        System.out.println("getRandomInt");
         Random random = new Random();
         return random.nextInt(limit);
     }
@@ -62,58 +132,40 @@ public class Controller implements Initializable{
      * @param shapeCode
      */
     public void placeShape(int shapeCode) {
-
-        Shape shape = null;
-
-        switch (shapeCode) {
-            case 0: shape = new BlockShape();
-            break;
-            case 1: shape = new IShape();
-            break;
-            case 2: shape = new TShape();
-            break;
-            case 3: shape = new L1Shape();
-            break;
-            case 4: shape = new L2Shape();
-            break;
-            case 5: shape = new S1Shape();
-            break;
-            case 6: shape = new S2Shape();
-            break;
-        }
+        System.out.println("placeShape");
+        instantDropExecuted = false;
+        Shape shape = shapeFactory(shapeCode);
 
         reverseShape(shape);
 
-        currShape = new CurrentShape(tetrisBoard.getX(),tetrisBoard.getY(),
-                shape.getOffset(),shape.getRotate(),shape.getMidPoint(),
-                shape.getPosition(),shape);
+        currShape = new CurrentShape(tetrisBoard.getX(),tetrisBoard.getY(),shape.getOffset(),shape.getRotate(),
+                shape.getMidPoint(),shape.getPosition(),shape);
 
         currShape.addShape(shapeReverseStack);
-
         currShape.setColor(shape.getColorCode());
 
-        moveShape();
-    }
+        currShape.goOneDown();
 
-    /** Initiates the game animation and starts the timeline by calling moveShape().
-     * @param speed
-     */
-    public void startAnimation(int speed) {
-
-        keyFrame = new KeyFrame(Duration.millis(speed), e -> moveShape());
-
-        timeline = new Timeline(keyFrame);
-
-        timeline.setCycleCount(Animation.INDEFINITE);
-
-        timeline.play();
+        if (gameOver()) {
+            System.out.println("OVER");
+            timeline.stop();
+            stopGameExecution();
+        } else {
+            reAddShape();
+            checkIfLanded();
+            tetrisBoard.drawTetrisField();
+            System.out.println("NOT OVER");
+            timeline.play();
+        }
     }
 
     public void speedUp() {
+        System.out.println("speedUp");
         timeline.setRate(15.0);
     }
 
     public void speedDown() {
+        System.out.println("speedDown");
         timeline.setRate(1.0);
     }
 
@@ -121,6 +173,7 @@ public class Controller implements Initializable{
      * Method is called by startAnimation() and is called every x milliseconds
      */
     public void moveShape() {
+        System.out.println("moveShape");
 
         if (!currShape.hasLanded()) {
             removeShape();
@@ -129,48 +182,90 @@ public class Controller implements Initializable{
 
             checkIfLanded();
         } else {
-            newPlacementWithDelay(540);
+
+            timeline.stop();
+            checkForRemovableLines();
+        }
+
+    }
+
+    public void checkIfGameOver() {
+        System.out.println("checkIfGameOver");
+        if (gameOver()) {
+            stopGameExecution();
         }
     }
 
-    public void newPlacement() {
+    public boolean gameOver() {
+        System.out.println("gameOver");
+        ArrayList<int[]> cellsEnteringBoard = currShape.get();
 
-        timeline.pause();
+        for (int i = 0; i < cellsEnteringBoard.size(); i++) {
 
-        timer = new Timer();
+            int[] cell = cellsEnteringBoard.get(i);
 
-        newShape();
-        timeline.play();
-        timer.cancel();
+            if (tetrisBoard.cellIsOn(cell[0],cell[1])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void stopGameExecution() {
+        System.out.println("stopGameExecution");
+        gameOver = true;
+        timeline.stop();
+        currShape.setLanded(true);
+        System.out.println("GAME OVER");
+    }
+
+    public void checkForRemovableLines() {
+        System.out.println("checkForRemovableLines");
+
+        if (removableLines()) {
+            removeLines(getRemovableLines(tetrisBoard.getBoard()),tetrisBoard.getBoard());
+        } else {
+            newShapeWithDelay();
+        }
+    }
+
+    public void newShapeWithDelay() {
+        System.out.println("newShapeWithDelay");
+        if (instantDropExecuted) {
+            newShape();
+        } else {
+            newShapeAfterWaiting(300);
+        }
     }
 
     /**
      * Initiates a new placement of a shape by using TimerTask class.
      * @param milliseconds
      */
-    public void newPlacementWithDelay(int milliseconds) {
+    public void newShapeAfterWaiting(int milliseconds) {
+        System.out.println("newshapeAfterWaiting");
 
         timeline.pause();
 
         timer = new Timer();
-
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
                 newShape();
-                timeline.play();
                 timer.cancel();
             }
         };
 
         timer.schedule(timerTask, milliseconds);
+
     }
 
     /**
      * Checks if the shape has landed.
      */
     public void checkIfLanded() {
-
+        System.out.println("checkIfLanded");
         if (touchingAnotherShapeBottom() || touchingBottomWall()) {
             currShape.setLanded(true);
         } else {
@@ -179,7 +274,7 @@ public class Controller implements Initializable{
     }
 
     public void cancelNewPlacement() {
-
+        System.out.println("cancelNewPlacement");
         // dont cancel if shape is stuck
         if ((timer != null) ) {
             timer.cancel();
@@ -191,20 +286,18 @@ public class Controller implements Initializable{
      * @param shape
      */
     public void reverseShape(Shape shape) {
-
-       shapeReverseStack = new Stack<>();
-
-       for (int i = 0; i < shape.getY(); i++) {
+        System.out.println("reverseShape");
+        shapeReverseStack = new Stack<>();
+        for (int i = 0; i < shape.getY(); i++) {
             shapeReverseStack.add(shape.getRow());
        }
-
     }
 
     /**
      * Checks if shape can keep on calling moveShape().
      * */
     public void checkIfShapeCanContinue() {
-
+        System.out.println("checkIfShapeCanContinue");
         if (!touchingAnotherShapeBottom() && !touchingBottomWall()) {
 
             currShape.setLanded(false);
@@ -219,8 +312,8 @@ public class Controller implements Initializable{
      * Moves current shape one to the left by removing it, moving and readding it.
      * */
     public void goLeft() {
-
-        if (!touchingAnotherShapeLeft()) {
+        System.out.println("goLeft");
+        if (!touchingAnotherShapeLeft() && currShape.hasEnteredBoard()) {
             removeShape();
             currShape.goOneLeft();
             reAddShape();
@@ -234,12 +327,11 @@ public class Controller implements Initializable{
      * Moves current shape one to the right by removing it, moving and readding it.
      * */
     public void goRight() {
-
-        if (!touchingAnotherShapeRight()) {
+        System.out.println("goRight");
+        if (!touchingAnotherShapeRight() && currShape.hasEnteredBoard()) {
             removeShape();
             currShape.goOneRight();
             reAddShape();
-
         }
 
         checkIfLanded();
@@ -271,7 +363,7 @@ public class Controller implements Initializable{
      * be removed by using a for-loop. The lines that can be removed
      * are added to an ArrayList, reversed and returned.
      */
-    public ArrayList<Integer> removableLines(int[][] board) {
+    public ArrayList<Integer> getRemovableLines(int[][] board) {
 
         ArrayList<Integer> lines = new ArrayList<>();
 
@@ -297,20 +389,12 @@ public class Controller implements Initializable{
         return lines;
     }
 
-    /** Temporary method used to print removable lines
-     */
-    public void printRemovableLines() {
-        ArrayList<Integer> lines = removableLines(tetrisBoard.getBoard());
+    public boolean removableLines(int[][] board) {
+        return getRemovableLines(board).size() > 0;
+    }
 
-        System.out.print("Removable Lines:");
-
-        for (int i = 0; i < lines.size(); i++) {
-            System.out.print(" " + lines.get(i));
-        }
-
-        System.out.println();
-
-        removeLines(removableLines(tetrisBoard.getBoard()),tetrisBoard.getBoard());
+    public boolean removableLines() {
+        return removableLines(tetrisBoard.getBoard());
     }
 
     /**
@@ -319,34 +403,150 @@ public class Controller implements Initializable{
      * balanceListForRemoval()
      **/
     public void removeLines(ArrayList<Integer> lines, int[][] board) {
+        System.out.println("removeLines");
+        ArrayList<Integer> colorCodes = new ArrayList<>();
 
-        balanceListForRemoval(lines);
+        for (int i = 0; i < lines.size(); i++) {
+            for (int j = 0; j < tetrisBoard.getX(); j++) {
+                colorCodes.add(tetrisBoard.getColorCode(j,lines.get(i)));
+            }
+        }
 
-        for (int k = 0; k < lines.size(); k++) {
+        //int blinkSpeed = 35;
+        int blinkSpeed = 47;
+        Timer blinkTimer = new Timer();
 
-            int destinationLine = lines.get(k);
-            int sourceLine = destinationLine - 1;
+        blinkTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Remove
+                for (int i = 0; i < lines.size(); i++) {
 
-            for (int i = destinationLine; i > 0; i--) {
+                    for (int j = 0; j < tetrisBoard.getX(); j++) {
 
-                for (int j = 0; j < board.length; j++) {
-
-                    board[j][destinationLine] = board[j][sourceLine];
+                        tetrisBoard.cellOffNoUpdateBoard(j,lines.get(i));
+                    }
                 }
 
-                destinationLine--;
-                sourceLine--;
+                tetrisBoard.drawTetrisField();
+            }
+        },0);
+
+        blinkTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Add
+                for (int i = 0; i < lines.size(); i++) {
+
+                    for (int j = 0; j < tetrisBoard.getX(); j++) {
+
+                        tetrisBoard.cellOnNoUpdateBoard(j,lines.get(i),colorCodes.get(i*10 + j));
+                    }
+                }
+                tetrisBoard.drawTetrisField();
+            }
+        },1*blinkSpeed);
+
+        blinkTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Remove
+                for (int i = 0; i < lines.size(); i++) {
+
+                    for (int j = 0; j < tetrisBoard.getX(); j++) {
+
+                        tetrisBoard.cellOffNoUpdateBoard(j,lines.get(i));
+                    }
+                }
+
+                tetrisBoard.drawTetrisField();
+            }
+        },2*blinkSpeed);
+
+        blinkTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Add
+                for (int i = 0; i < lines.size(); i++) {
+
+                    for (int j = 0; j < tetrisBoard.getX(); j++) {
+
+                        tetrisBoard.cellOnNoUpdateBoard(j,lines.get(i),colorCodes.get(i*10 + j));
+                    }
+                }
+
+                tetrisBoard.drawTetrisField();
+            }
+        },3*blinkSpeed);
+
+        blinkTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Remove
+                for (int i = 0; i < lines.size(); i++) {
+
+                    for (int j = 0; j < tetrisBoard.getX(); j++) {
+
+                        tetrisBoard.cellOffNoUpdateBoard(j,lines.get(i));
+                    }
+                }
+
+                tetrisBoard.drawTetrisField();
+            }
+        },4*blinkSpeed);
+
+        blinkTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Add
+                for (int i = 0; i < lines.size(); i++) {
+
+                    for (int j = 0; j < tetrisBoard.getX(); j++) {
+
+                        tetrisBoard.cellOnNoUpdateBoard(j,lines.get(i),colorCodes.get(i*10 + j));
+                    }
+                }
+
+                tetrisBoard.drawTetrisField();
+            }
+        },5*blinkSpeed);
+
+        blinkTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                balanceListForRemoval(lines);
+
+                // Removal of full lines
+                for (int k = 0; k < lines.size(); k++) {
+                    int destinationLine = lines.get(k);
+                    int sourceLine = destinationLine - 1;
+                    for (int i = destinationLine; i > 0; i--) {
+                        for (int j = 0; j < board.length; j++) {
+
+                            board[j][destinationLine] = board[j][sourceLine];
+                        }
+                        destinationLine--;
+                        sourceLine--;
+                    }
+                }
 
             }
+        },6*blinkSpeed);
 
-
-        }
+        blinkTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                tetrisBoard.drawTetrisField();
+                newShapeWithDelay();
+            }
+        },(6*blinkSpeed) + 25);
 
     }
 
     /**
      * Method that takes an ArrayList with lines that should be removed
-     * and adds 0,1,2... etc to index 0,1,2.. etc to adjust the lines that
+     * and adds 0,1,2... etc to indices 19,18,17... etc to adjust the lines that
      * are awaits a removal.
      *
      * Example: Line 19,18 (last and second to last) will be removed. After
@@ -419,7 +619,9 @@ public class Controller implements Initializable{
      * Moves the shape down using moveShape until it touches another shape or floor.
      * */
     public void instantDrop() {
-
+        System.out.println("instantDrop");
+        timeline.stop();
+        instantDropExecuted = true;
         removeShape();
 
         while (!currShape.hasLanded()) {
@@ -428,11 +630,8 @@ public class Controller implements Initializable{
         }
 
         reAddShape();
-        newShape();
+        checkForRemovableLines();
     }
-
-
-    //long time = System.currentTimeMillis();
 
     /**
      * Rotates shapes in the directions of the parameter.
@@ -620,10 +819,12 @@ public class Controller implements Initializable{
         for (int[] a : activeCells) {
 
             if (tetrisBoard.cellIsOn(a[0],a[1] + 1)) {
+                System.out.println("is touching");
                 return true;
             }
         }
 
+        System.out.println("isnt touching");
         return false;
     }
 
@@ -759,5 +960,22 @@ public class Controller implements Initializable{
 
         return false;
     }
+
+    public void pause() {
+        if (timeline.getStatus() == Animation.Status.RUNNING) {
+            timeline.pause();
+        } else {
+            timeline.play();
+        }
+    }
+
+    public void newGame() {
+        System.out.println("New game started");
+
+        timeline.stop();
+        gameInit();
+        newShape();
+    }
+
 
 }

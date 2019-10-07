@@ -1,10 +1,8 @@
 package sample;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
+import sample.Shapes.Shape;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Stack;
 
 public class CurrentShape {
@@ -14,6 +12,7 @@ public class CurrentShape {
     private ArrayList<int[]> list;
     private Stack<int[]> shape;
     private int rowsNotAdded;
+    private int rowsToAdd;
     private int rows;
     private int columns;
     private boolean landed;
@@ -23,6 +22,7 @@ public class CurrentShape {
     private int color;
     private boolean rotation;
     private int midtpointInteger;
+    private boolean onBoard;
     private Position position;
     private Shape type;
 
@@ -31,7 +31,7 @@ public class CurrentShape {
         this.x = x - 1;
         this.y = y - 1;
         this.offset = offset;
-        this.level = 0;
+        this.level = 2;
         this.list = new ArrayList<>();
         this.landed = false;
         this.frozen = false;
@@ -39,11 +39,21 @@ public class CurrentShape {
         this.midtpointInteger = midtpointInteger;
         this.position = position;
         this.type = shapeType;
+        this.onBoard = false;
+    }
+
+    public void offsetPlusOne() {
+        offset+=1;
+    }
+
+    public void offsetMinusOne() {
+        offset-=1;
     }
 
     public void addShape(Stack<int[]> shapeStack) {
         this.shape = shapeStack;
         rowsNotAdded = shape.size();
+        rowsToAdd = rowsNotAdded;
         rows = shapeStack.size();
         columns = shapeStack.get(0).length;
     }
@@ -52,7 +62,7 @@ public class CurrentShape {
         this.landed = status;
     }
 
-    public void goOneDown() {
+    public void goOneDown2() {
         // etter at den er lagt inn
         if (rowsNotAdded < rows) {
 
@@ -79,10 +89,55 @@ public class CurrentShape {
             }
             rowsNotAdded--;
         }
+
+    }
+
+    public void goOneDown() {
+        if (!this.onBoard) {
+            // place the shape
+
+
+            while (!shape.empty()) {
+
+                int[] row = shape.pop();
+
+                for (int i = 0; i < row.length; i++) {
+
+                    if (row[i] > 0) {
+                        int[] cell = {offset+i,level};
+                        list.add(cell);
+                    }
+                }
+                level++;
+            }
+
+            this.onBoard = true;
+        } else {
+            // go down as usual
+
+            for (int[] a : list) {
+
+                if (a[1] + 1 == y) {
+
+                    landed = true;
+                }
+
+                a[1] += 1;
+            }
+        }
     }
 
     public boolean hasLanded() {
         return landed;
+    }
+
+    public boolean hasEnteredBoard() {
+
+        if ((rowsToAdd - rowsNotAdded) > 0) {
+            return true;
+        }
+
+        return false;
     }
 
     public boolean isFrozen() {
@@ -133,9 +188,7 @@ public class CurrentShape {
     }
 
     public boolean isTouchingRightWall() {
-
         for (int[] a : list) {
-
             if (a[0] + 1 > x) {
                 return true;
             }
@@ -143,15 +196,6 @@ public class CurrentShape {
 
         return false;
     }
-
-    /*public boolean isTouchingShapeOnBottom() {
-
-        if () {
-
-        }
-
-        return false;
-    }*/
 
     public void rotate() {
 
@@ -326,6 +370,10 @@ public class CurrentShape {
     public ArrayList<int[]> get() {
         return list;
     }
+
+    /*public ArrayList<int[]> get9() {
+        return shape.peek();
+    }*/
 
     public int getColor() {
         return this.color;

@@ -1,20 +1,22 @@
-package sample;
+package sample.Shapes;
 
-public class S1Shape implements Shape {
+import sample.Position;
+
+public class L2Shape implements Shape {
 
     private int rowCount;
     private Position position = Position.START;
     private final int offset = 3;
-    private final int colorCode = 5;
+    private final int colorCode = 3;
     private final boolean rotate = true;
     private final int midPoint = 1;
 
     private final int[][] shape = {
-            {0,2,2},
-            {2,2,0}
+            {0,0,2},
+            {2,2,2}
     };
 
-    public S1Shape() {
+    public L2Shape() {
         this.rowCount = 0;
     }
 
@@ -61,6 +63,11 @@ public class S1Shape implements Shape {
     @Override
     public void setPosition(Position pos) {
         this.position = pos;
+    }
+
+    @Override
+    public int[][] getShape() {
+        return shape;
     }
 
 }

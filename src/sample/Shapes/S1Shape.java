@@ -1,20 +1,23 @@
-package sample;
+package sample.Shapes;
 
-public class BlockShape implements Shape {
+import sample.Position;
+import sample.Shapes.Shape;
+
+public class S1Shape implements Shape {
 
     private int rowCount;
     private Position position = Position.START;
-    private final int offset = 4;
-    private final int colorCode = 4;
-    private final boolean rotate = false;
-    private final int midPoint = 0;
+    private final int offset = 3;
+    private final int colorCode = 5;
+    private final boolean rotate = true;
+    private final int midPoint = 1;
 
     private final int[][] shape = {
-            {2,2},
-            {2,2}
+            {0,2,2},
+            {2,2,0}
     };
 
-    public BlockShape() {
+    public S1Shape() {
         this.rowCount = 0;
     }
 
@@ -61,6 +64,11 @@ public class BlockShape implements Shape {
     @Override
     public void setPosition(Position pos) {
         this.position = pos;
+    }
+
+    @Override
+    public int[][] getShape() {
+        return shape;
     }
 
 }

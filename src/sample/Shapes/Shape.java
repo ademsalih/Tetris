@@ -1,4 +1,6 @@
-package sample;
+package sample.Shapes;
+
+import sample.Position;
 
 public interface Shape {
 
@@ -19,5 +21,7 @@ public interface Shape {
     public Position getPosition();
 
     public void setPosition(Position pos);
+
+    public int[][] getShape();
 
 }
