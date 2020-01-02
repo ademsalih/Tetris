@@ -31,7 +31,7 @@ public class CurrentShape {
         this.x = x - 1;
         this.y = y - 1;
         this.offset = offset;
-        this.level = 2;
+        this.level = 0;
         this.list = new ArrayList<>();
         this.landed = false;
         this.frozen = false;
@@ -52,7 +52,7 @@ public class CurrentShape {
 
     public void addShape(Stack<int[]> shapeStack) {
         this.shape = shapeStack;
-        rowsNotAdded = shape.size();
+        rowsNotAdded = 0;
         rowsToAdd = rowsNotAdded;
         rows = shapeStack.size();
         columns = shapeStack.get(0).length;
@@ -94,15 +94,10 @@ public class CurrentShape {
 
     public void goOneDown() {
         if (!this.onBoard) {
-            // place the shape
-
-
             while (!shape.empty()) {
-
+                if (shape.size() == 1) level = 1;
                 int[] row = shape.pop();
-
                 for (int i = 0; i < row.length; i++) {
-
                     if (row[i] > 0) {
                         int[] cell = {offset+i,level};
                         list.add(cell);
@@ -110,18 +105,12 @@ public class CurrentShape {
                 }
                 level++;
             }
-
             this.onBoard = true;
         } else {
-            // go down as usual
-
             for (int[] a : list) {
-
                 if (a[1] + 1 == y) {
-
                     landed = true;
                 }
-
                 a[1] += 1;
             }
         }

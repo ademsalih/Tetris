@@ -24,7 +24,7 @@ public class TetrisBoard {
         this.graphicsContext = canvas.getGraphicsContext2D();
         this.tileSize = tileSize;
         this.xSpace = 0;
-        this.ySpace = 0;
+        this.ySpace = 2;
         this.board = new int[x][y];
     }
 
@@ -32,12 +32,8 @@ public class TetrisBoard {
         return this.board;
     }
 
-    // Draw board using the integer board
     public void drawTetrisField() {
-
-
-
-        for(int i = 0; i < y; i++) {
+        for(int i = 2; i < y; i++) {
 
             for(int j = 0; j < x; j++) {
 
@@ -73,11 +69,11 @@ public class TetrisBoard {
             xSpace=0;
             ySpace+=tileSize;
         }
-        ySpace=0;
+        ySpace=2;
 
 
         graphicsContext.setStroke(new Color(0.25,0.25,0.25,1.0));
-        graphicsContext.strokeRect(0,40,200,440);
+        graphicsContext.strokeRect(0,0,200,400);
         graphicsContext.setStroke(Color.BLACK);
     }
 

@@ -10,16 +10,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<GridPane fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="305.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="411.0" prefWidth="305.0" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="210.0" minWidth="210.0" prefWidth="210.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="90.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="410.0" minHeight="450.0" prefHeight="450.0" valignment="CENTER" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="411.0" minHeight="411.0" prefHeight="411.0" valignment="CENTER" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Canvas fx:id="canvas" height="440.0" width="200.0">
+      <Canvas fx:id="canvas" height="400.0" width="200.0">
          <GridPane.margin>
             <Insets left="5.0" />
          </GridPane.margin></Canvas>

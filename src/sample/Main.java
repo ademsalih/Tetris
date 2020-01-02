@@ -28,7 +28,7 @@ public class Main extends Application {
 
         primaryStage.setTitle("Tetris");
 
-        Scene scene = new Scene(root, 306,450);
+        Scene scene = new Scene(root, 306,410);
 
         root.requestFocus();
 

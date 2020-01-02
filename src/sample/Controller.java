@@ -364,21 +364,16 @@ public class Controller implements Initializable{
      * are added to an ArrayList, reversed and returned.
      */
     public ArrayList<Integer> getRemovableLines(int[][] board) {
-
         ArrayList<Integer> lines = new ArrayList<>();
 
         for (int i = 0; i < board[0].length; i++) {
-
             boolean fullLine = true;
-
             for (int j = 0; j < board.length; j++) {
-
                 if (board[j][i] == 0) {
                     fullLine = false;
                     continue;
                 }
             }
-
             if (fullLine) {
                 lines.add(i);
             }
@@ -639,12 +634,6 @@ public class Controller implements Initializable{
      * */
     public void rotateShape(Direction direction) {
 
-        /*time = System.currentTimeMillis() - time;
-
-        System.out.println(time);
-
-        time = System.currentTimeMillis();*/
-
         if (currShape.canRotate()) {
 
             // nåværende posisjon lagres
@@ -672,9 +661,7 @@ public class Controller implements Initializable{
             int[][] rotationTable = new int[5][2];
 
             for (int i = 0; i < curr.length; i++) {
-
                 for (int j = 0; j < curr[0].length; j++) {
-
                     rotationTable[i][j] = curr[i][j] - next[i][j];
                 }
             }
@@ -689,17 +676,12 @@ public class Controller implements Initializable{
             }
 
             ArrayList<int[]> beforeKick = cloneOf(currShape.get());
-
             kick(currShape.get(),rotationTable[0][0],rotationTable[0][1]);
 
             if (misplacedCells(currShape.get()) > 0) {
-
                 currShape.set(cloneOf(beforeKick));
-
                 for (int i = 1; i < rotationTable.length; i++) {
-
                     kick(currShape.get(),rotationTable[i][0],rotationTable[i][1]);
-
                     if (misplacedCells(currShape.get()) == 0) {
                         break;
                     } else {
@@ -712,14 +694,10 @@ public class Controller implements Initializable{
                     }
                 }
             }
-
             reAddShape();
-
             currShape.setPosition(nextPosition);
         }
-
         checkIfLanded();
-
         checkIfShapeCanContinue();
     }
 
