@@ -7,25 +7,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Tetris_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sample/NextShapeField.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/JavaFX.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tetris.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Tetris.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/BlockShape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Shapes/BlockShape.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/module-info.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/Controller$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/Controller$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/Controller$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/Controller$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/Controller$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/Controller$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/Controller$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/Controller$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/Controller$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/Controller$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/Controller$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/Controller$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/Controller$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/Controller$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/Controller$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/Controller$8.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/Controller$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/Controller$9.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/Controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/CurrentShape.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/CurrentShape.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/Direction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/Direction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/Main$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/Main$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/NextShapeField.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/NextShapeField.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/Position.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/Position.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/ShapePosition$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/ShapePosition$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/ShapePosition.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/ShapePosition.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/Shapes/BlockShape.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/Shapes/BlockShape.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/Shapes/IShape.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/Shapes/IShape.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/Shapes/L1Shape.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/Shapes/L1Shape.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/Shapes/L2Shape.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/Shapes/L2Shape.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/Shapes/S1Shape.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/Shapes/S1Shape.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/Shapes/S2Shape.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/Shapes/S2Shape.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/Shapes/Shape.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/Shapes/Shape.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/Shapes/TShape.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/Shapes/TShape.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tetris/sample/TetrisBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tetris/sample/TetrisBoard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/module-info.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/CurrentShape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/CurrentShape.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/IShape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Shapes/IShape.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/L1Shape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Shapes/L1Shape.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/L2Shape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Shapes/L2Shape.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/S1Shape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Shapes/S1Shape.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/S2Shape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Shapes/S2Shape.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Shape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Shapes/Shape.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/TShape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Shapes/TShape.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/TetrisBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/TetrisBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/View/sample.fxml" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -110,10 +125,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-430">
-              <caret line="18" column="44" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
+            <state relative-caret-position="462">
+              <caret line="45" selection-start-line="45" selection-end-line="45" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1145#1146#0" expanded="true" />
+                <element signature="e#1196#1197#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -122,8 +139,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-545">
-              <caret line="2" column="23" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
+            <state relative-caret-position="290">
+              <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -131,7 +151,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/NextShapeField.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="332">
+            <state relative-caret-position="280">
               <caret line="24" column="26" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -145,10 +165,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/module-info.java">
+        <entry file="file://$PROJECT_DIR$/src/sample/Direction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="1" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+            <state relative-caret-position="70">
+              <caret line="5" selection-start-line="5" selection-end-line="5" />
             </state>
           </provider>
         </entry>
@@ -156,7 +176,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/TetrisBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
+            <state relative-caret-position="448">
               <caret line="39" column="21" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -170,10 +190,40 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/CurrentShape.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5160">
-              <caret line="359" column="33" selection-start-line="359" selection-start-column="33" selection-end-line="359" selection-end-column="33" />
+            <state relative-caret-position="637">
+              <caret line="203" selection-start-line="203" selection-end-line="203" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1153#1154#0" expanded="true" />
+                <element signature="e#1178#1179#0" expanded="true" />
+                <element signature="e#1214#1215#0" expanded="true" />
+                <element signature="e#1239#1240#0" expanded="true" />
+                <element signature="e#1525#1526#0" expanded="true" />
+                <element signature="e#1561#1562#0" expanded="true" />
+                <element signature="e#2943#2944#0" expanded="true" />
+                <element signature="e#2972#2973#0" expanded="true" />
+                <element signature="e#3156#3157#0" expanded="true" />
+                <element signature="e#3185#3186#0" expanded="true" />
+                <element signature="e#3213#3214#0" expanded="true" />
+                <element signature="e#3242#3243#0" expanded="true" />
+                <element signature="e#8092#8093#0" expanded="true" />
+                <element signature="e#8128#8129#0" expanded="true" />
+                <element signature="e#8165#8166#0" expanded="true" />
+                <element signature="e#8192#8193#0" expanded="true" />
+                <element signature="e#8298#8299#0" expanded="true" />
+                <element signature="e#8331#8332#0" expanded="true" />
+                <element signature="e#8370#8371#0" expanded="true" />
+                <element signature="e#8404#8405#0" expanded="true" />
+                <element signature="e#8441#8442#0" expanded="true" />
+                <element signature="e#8477#8478#0" expanded="true" />
+                <element signature="e#8527#8528#0" expanded="true" />
+                <element signature="e#8567#8568#0" expanded="true" />
+                <element signature="e#8597#8598#0" expanded="true" />
+                <element signature="e#8629#8630#0" expanded="true" />
+                <element signature="e#8676#8677#0" expanded="true" />
+                <element signature="e#8709#8710#0" expanded="true" />
+                <element signature="e#8753#8754#0" expanded="true" />
+                <element signature="e#8788#8789#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -182,7 +232,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/Shapes/BlockShape.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
+            <state relative-caret-position="154">
               <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
               <folding>
                 <element signature="e#422#423#0" expanded="true" />
@@ -215,7 +265,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/Position.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
+            <state relative-caret-position="42">
               <caret line="3" column="20" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
             </state>
           </provider>
@@ -287,13 +337,13 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/sample/Shapes/BlockShape.java" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/src/sample/CurrentShape.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/sample/Shapes/TShape.java" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/src/sample/NextShapeField.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/sample/Shapes/Shape.java" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/src/sample/ShapePosition.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/sample/Main.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/sample/Shapes/Shape.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/sample/Shapes/BlockShape.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/sample/ShapePosition.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/sample/NextShapeField.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/sample/CurrentShape.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/sample/Controller.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/sample/TetrisBoard.java" root0="SKIP_INSPECTION" />
   </component>
@@ -327,11 +377,12 @@
         <option value="$PROJECT_DIR$/src/sample/View/startStylesheet.css" />
         <option value="$PROJECT_DIR$/src/sample/NextShapeField.java" />
         <option value="$PROJECT_DIR$/src/sample/View/ny.fxml" />
-        <option value="$PROJECT_DIR$/src/sample/Controller.java" />
         <option value="$PROJECT_DIR$/src/sample/TetrisBoard.java" />
-        <option value="$PROJECT_DIR$/src/sample/CurrentShape.java" />
         <option value="$PROJECT_DIR$/src/package-info.java" />
         <option value="$PROJECT_DIR$/src/sample/Main.java" />
+        <option value="$APPLICATION_CONFIG_DIR$/idea.vmoptions" />
+        <option value="$PROJECT_DIR$/src/sample/CurrentShape.java" />
+        <option value="$PROJECT_DIR$/src/sample/Controller.java" />
       </list>
     </option>
   </component>
@@ -343,10 +394,9 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="101" />
     <option name="y" value="23" />
-    <option name="width" value="1339" />
-    <option name="height" value="840" />
+    <option name="width" value="1248" />
+    <option name="height" value="835" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -359,7 +409,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -396,7 +446,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -415,7 +465,7 @@
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
@@ -462,24 +512,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application">
+    <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="sample.Main" />
       <module name="Tetris" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="sample.Shapes.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
+      <option name="VM_PARAMETERS" value="--module-path /Library/Java/JavaFX/lib --add-modules javafx.controls,javafx.fxml" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="MAIN_CLASS_NAME" value="sample.Main" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -684,6 +726,8 @@
       <workItem from="1570048504684" duration="412000" />
       <workItem from="1570477264668" duration="139000" />
       <workItem from="1570477877706" duration="461000" />
+      <workItem from="1577987619763" duration="891000" />
+      <workItem from="1578002309715" duration="599000" />
     </task>
     <task id="LOCAL-00001" summary="Adding already created project to repository.">
       <created>1529932611512</created>
@@ -773,7 +817,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="441728000" />
+    <option name="totallyTimeSpent" value="444577000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -785,10 +829,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="101" y="23" width="1339" height="840" extended-state="0" />
+    <frame x="0" y="23" width="1248" height="835" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49740034" visible="true" weight="0.21665382" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49740034" visible="true" weight="0.2235577" />
       <window_info id="Structure" order="1" sideWeight="0.50259966" side_tool="true" weight="0.24236111" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -797,8 +841,8 @@
       <window_info id="Image Layers" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32893" />
-      <window_info anchor="bottom" x="0" y="309" width="1440" height="304" id="Run" order="2" sideWeight="0.5018405" weight="0.28877005" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49791667" weight="0.3846154" />
+      <window_info anchor="bottom" x="0" y="309" width="1440" height="304" id="Run" order="2" sideWeight="0.5018405" weight="0.28795812" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49791667" weight="0.38350785" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3167116" />
@@ -906,11 +950,13 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/sample/Controller.java</url>
-          <line>267</line>
-          <properties />
-          <option name="timeStamp" value="8" />
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/sample/CurrentShape.java</url>
+          <line>133</line>
+          <properties class="sample.CurrentShape" method="hasEnteredBoard">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -922,52 +968,47 @@
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
       <expression>
+        <expression-string>rowsToAdd-rowsNotAdded&gt;0</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>rowsToAdd-rowsNotAdded</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>rowsToAdd</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>currShape.hasEnteredBoard()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>!touchingAnotherShapeLeft()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>touchingAnotherShapeLeft()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>event.getCode()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>event</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>getClass(shape)</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>shape.capacity()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>shape</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>type</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>shape.getClass()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>tetrisBoard.cellIsOn(0,21)</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>getActiveCellsBottom()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>touchingAnotherShapeBottom()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>touchingBottomWall()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>tetrisBoard</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -992,13 +1033,6 @@
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home/src.zip!/java/lang/System.java" />
     <entry file="file://$PROJECT_DIR$/src/sample/sample2.fxml" />
     <entry file="file://$PROJECT_DIR$/src/sample/View/sample.fxml" />
-    <entry file="file://$PROJECT_DIR$/src/sample/Direction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="8" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home/javafx-src.zip!/javafx/scene/canvas/Canvas.java" />
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home/javafx-src.zip!/javafx/util/Duration.java" />
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home/javafx-src.zip!/javafx/fxml/FXMLLoader.java" />
@@ -1112,17 +1146,65 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/View/ny.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="25" column="41" lean-forward="true" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
         </state>
       </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home/javafx-src.zip!/javafx/animation/Timeline.java" />
+    <entry file="file://$PROJECT_DIR$/src/module-info.java" />
+    <entry file="file://$APPLICATION_CONFIG_DIR$/idea.vmoptions">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="18" column="52" lean-forward="true" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaFX/lib/javafx.base.jar!/javafx/event/Event.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="32" column="98" selection-start-line="32" selection-start-column="98" selection-end-line="32" selection-end-column="98" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="45" selection-start-line="45" selection-end-line="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1145#1146#0" expanded="true" />
+            <element signature="e#1196#1197#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/NextShapeField.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="24" column="26" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#912#913#0" expanded="true" />
+            <element signature="e#979#980#0" expanded="true" />
+            <element signature="e#1019#1020#0" expanded="true" />
+            <element signature="e#1084#1085#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Direction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="70">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/TetrisBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
+        <state relative-caret-position="448">
           <caret line="39" column="21" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1132,19 +1214,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/CurrentShape.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5160">
-          <caret line="359" column="33" selection-start-line="359" selection-start-column="33" selection-end-line="359" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Shapes/BlockShape.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
+        <state relative-caret-position="154">
           <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
           <folding>
             <element signature="e#422#423#0" expanded="true" />
@@ -1175,46 +1247,58 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Position.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
+        <state relative-caret-position="42">
           <caret line="3" column="20" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/NextShapeField.java">
+    <entry file="file://$PROJECT_DIR$/src/sample/CurrentShape.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="24" column="26" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
+        <state relative-caret-position="637">
+          <caret line="203" selection-start-line="203" selection-end-line="203" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#912#913#0" expanded="true" />
-            <element signature="e#979#980#0" expanded="true" />
-            <element signature="e#1019#1020#0" expanded="true" />
-            <element signature="e#1084#1085#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/module-info.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="1" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-430">
-          <caret line="18" column="44" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#1153#1154#0" expanded="true" />
+            <element signature="e#1178#1179#0" expanded="true" />
+            <element signature="e#1214#1215#0" expanded="true" />
+            <element signature="e#1239#1240#0" expanded="true" />
+            <element signature="e#1525#1526#0" expanded="true" />
+            <element signature="e#1561#1562#0" expanded="true" />
+            <element signature="e#2943#2944#0" expanded="true" />
+            <element signature="e#2972#2973#0" expanded="true" />
+            <element signature="e#3156#3157#0" expanded="true" />
+            <element signature="e#3185#3186#0" expanded="true" />
+            <element signature="e#3213#3214#0" expanded="true" />
+            <element signature="e#3242#3243#0" expanded="true" />
+            <element signature="e#8092#8093#0" expanded="true" />
+            <element signature="e#8128#8129#0" expanded="true" />
+            <element signature="e#8165#8166#0" expanded="true" />
+            <element signature="e#8192#8193#0" expanded="true" />
+            <element signature="e#8298#8299#0" expanded="true" />
+            <element signature="e#8331#8332#0" expanded="true" />
+            <element signature="e#8370#8371#0" expanded="true" />
+            <element signature="e#8404#8405#0" expanded="true" />
+            <element signature="e#8441#8442#0" expanded="true" />
+            <element signature="e#8477#8478#0" expanded="true" />
+            <element signature="e#8527#8528#0" expanded="true" />
+            <element signature="e#8567#8568#0" expanded="true" />
+            <element signature="e#8597#8598#0" expanded="true" />
+            <element signature="e#8629#8630#0" expanded="true" />
+            <element signature="e#8676#8677#0" expanded="true" />
+            <element signature="e#8709#8710#0" expanded="true" />
+            <element signature="e#8753#8754#0" expanded="true" />
+            <element signature="e#8788#8789#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-545">
-          <caret line="2" column="23" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
+        <state relative-caret-position="290">
+          <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1229,6 +1313,7 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>
@@ -1260,7 +1345,7 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
-          <last-edited>12</last-edited>
+          <last-edited>13</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1277,6 +1362,7 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
@@ -1295,6 +1381,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
+          <last-edited>JavaFX</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

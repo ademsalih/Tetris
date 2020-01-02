@@ -137,7 +137,7 @@ public class CurrentShape {
             return true;
         }
 
-        return false;
+        return true;
     }
 
     public boolean isFrozen() {
