@@ -10,7 +10,7 @@ public class S2Shape implements Shape {
     private final int offset = 3;
     private final int colorCode = 7;
     private final boolean rotate = true;
-    private final int midPoint = 0;
+    private final int midPoint = 1;
 
     private final int[][] shape = {
             {2,2,0},

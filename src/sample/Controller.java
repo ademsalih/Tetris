@@ -27,7 +27,6 @@ public class Controller implements Initializable{
     public CurrentShape currShape;
     public TetrisBoard tetrisBoard;
     public ShapePosition shapePosition;
-    public Stack<int[]> shapeReverseStack;
 
     public int nextShapeCode;
     public GraphicsContext gc;
@@ -74,8 +73,6 @@ public class Controller implements Initializable{
      * Check for lines to be removed and brings a new shape to board.
      */
     public void newShape() {
-        System.out.println("newShape");
-
         if (nextShapeCode < 0) {
             nextShapeCode = getRandomInt(7);
         }
@@ -89,10 +86,7 @@ public class Controller implements Initializable{
     }
 
     public void setNextShape(int shapeCode) {
-        System.out.println("next shape was set to: " + shapeCode);
-
         Shape shape = shapeFactory(shapeCode);
-
         nextShapeField.setShape(shape.getShape(),shape.getColorCode());
     }
 
@@ -122,7 +116,6 @@ public class Controller implements Initializable{
      * @param limit
      */
     public int getRandomInt(int limit) {
-        System.out.println("getRandomInt");
         Random random = new Random();
         return random.nextInt(limit);
     }
@@ -132,40 +125,34 @@ public class Controller implements Initializable{
      * @param shapeCode
      */
     public void placeShape(int shapeCode) {
-        System.out.println("placeShape");
         instantDropExecuted = false;
         Shape shape = shapeFactory(shapeCode);
 
-        reverseShape(shape);
 
         currShape = new CurrentShape(tetrisBoard.getX(),tetrisBoard.getY(),shape.getOffset(),shape.getRotate(),
                 shape.getMidPoint(),shape.getPosition(),shape);
 
-        currShape.addShape(shapeReverseStack);
+        currShape.addShape(shape);
         currShape.setColor(shape.getColorCode());
 
         currShape.goOneDown();
 
         if (gameOver()) {
-            System.out.println("OVER");
             timeline.stop();
             stopGameExecution();
         } else {
             reAddShape();
             checkIfLanded();
             tetrisBoard.drawTetrisField();
-            System.out.println("NOT OVER");
             timeline.play();
         }
     }
 
     public void speedUp() {
-        System.out.println("speedUp");
         timeline.setRate(15.0);
     }
 
     public void speedDown() {
-        System.out.println("speedDown");
         timeline.setRate(1.0);
     }
 
@@ -173,16 +160,12 @@ public class Controller implements Initializable{
      * Method is called by startAnimation() and is called every x milliseconds
      */
     public void moveShape() {
-        System.out.println("moveShape");
-
         if (!currShape.hasLanded()) {
             removeShape();
             currShape.goOneDown();
             reAddShape();
-
             checkIfLanded();
         } else {
-
             timeline.stop();
             checkForRemovableLines();
         }
@@ -190,14 +173,12 @@ public class Controller implements Initializable{
     }
 
     public void checkIfGameOver() {
-        System.out.println("checkIfGameOver");
         if (gameOver()) {
             stopGameExecution();
         }
     }
 
     public boolean gameOver() {
-        System.out.println("gameOver");
         ArrayList<int[]> cellsEnteringBoard = currShape.get();
 
         for (int i = 0; i < cellsEnteringBoard.size(); i++) {
@@ -213,16 +194,12 @@ public class Controller implements Initializable{
     }
 
     public void stopGameExecution() {
-        System.out.println("stopGameExecution");
         gameOver = true;
         timeline.stop();
         currShape.setLanded(true);
-        System.out.println("GAME OVER");
     }
 
     public void checkForRemovableLines() {
-        System.out.println("checkForRemovableLines");
-
         if (removableLines()) {
             removeLines(getRemovableLines(tetrisBoard.getBoard()),tetrisBoard.getBoard());
         } else {
@@ -231,7 +208,6 @@ public class Controller implements Initializable{
     }
 
     public void newShapeWithDelay() {
-        System.out.println("newShapeWithDelay");
         if (instantDropExecuted) {
             newShape();
         } else {
@@ -244,8 +220,6 @@ public class Controller implements Initializable{
      * @param milliseconds
      */
     public void newShapeAfterWaiting(int milliseconds) {
-        System.out.println("newshapeAfterWaiting");
-
         timeline.pause();
 
         timer = new Timer();
@@ -265,7 +239,6 @@ public class Controller implements Initializable{
      * Checks if the shape has landed.
      */
     public void checkIfLanded() {
-        System.out.println("checkIfLanded");
         if (touchingAnotherShapeBottom() || touchingBottomWall()) {
             currShape.setLanded(true);
         } else {
@@ -274,30 +247,16 @@ public class Controller implements Initializable{
     }
 
     public void cancelNewPlacement() {
-        System.out.println("cancelNewPlacement");
-        // dont cancel if shape is stuck
         if ((timer != null) ) {
             timer.cancel();
         }
     }
 
-    /** Method that adds a shape to the stack.
-     *
-     * @param shape
-     */
-    public void reverseShape(Shape shape) {
-        System.out.println("reverseShape");
-        shapeReverseStack = new Stack<>();
-        for (int i = 0; i < shape.getY(); i++) {
-            shapeReverseStack.add(shape.getRow());
-       }
-    }
 
     /**
      * Checks if shape can keep on calling moveShape().
      * */
     public void checkIfShapeCanContinue() {
-        System.out.println("checkIfShapeCanContinue");
         if (!touchingAnotherShapeBottom() && !touchingBottomWall()) {
 
             currShape.setLanded(false);
@@ -312,7 +271,6 @@ public class Controller implements Initializable{
      * Moves current shape one to the left by removing it, moving and readding it.
      * */
     public void goLeft() {
-        System.out.println("goLeft");
         if (!touchingAnotherShapeLeft() && currShape.hasEnteredBoard()) {
             removeShape();
             currShape.goOneLeft();
@@ -327,7 +285,6 @@ public class Controller implements Initializable{
      * Moves current shape one to the right by removing it, moving and readding it.
      * */
     public void goRight() {
-        System.out.println("goRight");
         if (!touchingAnotherShapeRight() && currShape.hasEnteredBoard()) {
             removeShape();
             currShape.goOneRight();
@@ -398,7 +355,6 @@ public class Controller implements Initializable{
      * balanceListForRemoval()
      **/
     public void removeLines(ArrayList<Integer> lines, int[][] board) {
-        System.out.println("removeLines");
         ArrayList<Integer> colorCodes = new ArrayList<>();
 
         for (int i = 0; i < lines.size(); i++) {
@@ -614,7 +570,6 @@ public class Controller implements Initializable{
      * Moves the shape down using moveShape until it touches another shape or floor.
      * */
     public void instantDrop() {
-        System.out.println("instantDrop");
         timeline.stop();
         instantDropExecuted = true;
         removeShape();
@@ -789,20 +744,13 @@ public class Controller implements Initializable{
      * Checks if the current shape is touching another shape at the bottom.
      * */
     public boolean touchingAnotherShapeBottom() {
-
-        // skal kun sjekke de cellene som er aktive
-
         ArrayList<int[]> activeCells = getActiveCellsBottom();
-
         for (int[] a : activeCells) {
-
             if (tetrisBoard.cellIsOn(a[0],a[1] + 1)) {
-                System.out.println("is touching");
                 return true;
             }
         }
 
-        System.out.println("isnt touching");
         return false;
     }
 
@@ -810,13 +758,10 @@ public class Controller implements Initializable{
      * Checks if the current shape is touching another shape to the right.
      * */
     public boolean touchingAnotherShapeRight() {
-
         ArrayList<int[]> activeCells = getActiveCellsRight();
 
         for (int[] a : activeCells) {
-
             if (tetrisBoard.cellIsOn(a[0] + 1,a[1])) {
-
                 return true;
             }
         }
@@ -828,13 +773,10 @@ public class Controller implements Initializable{
      * Checks if the current shape is touching another shape to the left.
      * */
     public boolean touchingAnotherShapeLeft() {
-
         ArrayList<int[]> activeCells = getActiveCellsLeft();
 
         for (int[] a : activeCells) {
-
             if (tetrisBoard.cellIsOn(a[0] - 1,a[1])) {
-
                 return true;
             }
         }
@@ -846,15 +788,11 @@ public class Controller implements Initializable{
      * Find the cells of the shape to check if shape moves upwards.
      * */
     public ArrayList<int[]> getActiveCellsTop() {
-
         ArrayList<int[]> active = new ArrayList<>();
 
         for (int[] a : currShape.get()) {
-
             int[] check = new int[]{a[0],a[1]-1};
-
             if (!contains(check)) {
-
                 active.add(a);
             }
         }
@@ -867,15 +805,10 @@ public class Controller implements Initializable{
      * touchingAnotherShapeBottom().
      * */
     public ArrayList<int[]> getActiveCellsBottom() {
-
         ArrayList<int[]> active = new ArrayList<>();
-
         for (int[] a : currShape.get()) {
-
             int[] check = new int[]{a[0],a[1]+1};
-
             if (!contains(check)) {
-
                 active.add(a);
             }
         }
@@ -888,13 +821,9 @@ public class Controller implements Initializable{
      * touchingAnotherShapeLeft().
      * */
     public ArrayList<int[]> getActiveCellsLeft() {
-
         ArrayList<int[]> active = new ArrayList<>();
-
         for (int[] a : currShape.get()) {
-
             int[] check = new int[]{a[0]-1,a[1]};
-
             if (!contains(check)) {
                 active.add(a);
             }
@@ -948,7 +877,6 @@ public class Controller implements Initializable{
     }
 
     public void newGame() {
-        System.out.println("New game started");
 
         timeline.stop();
         gameInit();

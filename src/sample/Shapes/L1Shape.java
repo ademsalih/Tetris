@@ -9,7 +9,7 @@ public class L1Shape implements Shape {
     private final int offset = 3;
     private final int colorCode = 2;
     private final boolean rotate = true;
-    private final int midPoint = 1;
+    private final int midPoint = 2;
 
     private final int[][] shape = {
             {2,0,0},

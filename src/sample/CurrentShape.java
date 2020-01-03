@@ -10,7 +10,7 @@ public class CurrentShape {
     private int offset;
     private int level;
     private ArrayList<int[]> list;
-    private Stack<int[]> shape;
+    private Stack<int[]> shapeStack;
     private int rowsNotAdded;
     private int rowsToAdd;
     private int rows;
@@ -50,8 +50,20 @@ public class CurrentShape {
         offset-=1;
     }
 
-    public void addShape(Stack<int[]> shapeStack) {
-        this.shape = shapeStack;
+    public void addShape(Shape shape) {
+
+        Stack<int[]> tmp = new Stack<>();
+        Stack<int[]> tmp2 = new Stack<>();
+
+        for (int i = 0; i < shape.getShape().length; i++) {
+            tmp.add(shape.getShape()[i]);
+        }
+
+        while (!tmp.empty()) {
+            tmp2.push(tmp.pop());
+        }
+
+        this.shapeStack = tmp2;
         rowsNotAdded = 0;
         rowsToAdd = rowsNotAdded;
         rows = shapeStack.size();
@@ -79,7 +91,7 @@ public class CurrentShape {
 
         // mens figuren legges inn
         if (rowsNotAdded > 0) {
-            int[] row = shape.pop();
+            int[] row = shapeStack.pop();
             for (int i = 0; i < row.length; i++) {
 
                 if (row[i] > 0) {
@@ -94,9 +106,9 @@ public class CurrentShape {
 
     public void goOneDown() {
         if (!this.onBoard) {
-            while (!shape.empty()) {
-                if (shape.size() == 1) level = 1;
-                int[] row = shape.pop();
+            while (!shapeStack.empty()) {
+                if (shapeStack.size() == 1) level = 1;
+                int[] row = shapeStack.pop();
                 for (int i = 0; i < row.length; i++) {
                     if (row[i] > 0) {
                         int[] cell = {offset+i,level};
@@ -272,7 +284,7 @@ public class CurrentShape {
 
         // TODO Do not allow rotation when close to edge
 
-        // TODO Do not allow rotation before the whole shape is on the board
+        // TODO Do not allow rotation before the whole shapeStack is on the board
 
         if (!(rowsNotAdded > 0)) {
 
@@ -361,7 +373,7 @@ public class CurrentShape {
     }
 
     /*public ArrayList<int[]> get9() {
-        return shape.peek();
+        return shapeStack.peek();
     }*/
 
     public int getColor() {
