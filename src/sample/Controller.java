@@ -79,8 +79,7 @@ public class Controller implements Initializable{
 
         goingToBoardCode = nextShapeCode;
 
-        nextShapeCode = getRandomInt(7);
-        setNextShape(nextShapeCode);
+
 
         placeShape(goingToBoardCode);
     }
@@ -138,9 +137,13 @@ public class Controller implements Initializable{
         currShape.goOneDown();
 
         if (gameOver()) {
-            timeline.stop();
+            System.out.println("Game Over!");
             stopGameExecution();
         } else {
+            System.out.println("Game!");
+            nextShapeCode = getRandomInt(7);
+            setNextShape(nextShapeCode);
+
             reAddShape();
             checkIfLanded();
             tetrisBoard.drawTetrisField();
@@ -172,12 +175,6 @@ public class Controller implements Initializable{
 
     }
 
-    public void checkIfGameOver() {
-        if (gameOver()) {
-            stopGameExecution();
-        }
-    }
-
     public boolean gameOver() {
         ArrayList<int[]> cellsEnteringBoard = currShape.get();
 
@@ -194,8 +191,8 @@ public class Controller implements Initializable{
     }
 
     public void stopGameExecution() {
-        gameOver = true;
         timeline.stop();
+        gameOver = true;
         currShape.setLanded(true);
     }
 
