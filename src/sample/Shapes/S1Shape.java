@@ -1,74 +1,27 @@
 package sample.Shapes;
 
 import sample.Position;
-import sample.Shapes.Shape;
 
-public class S1Shape implements Shape {
+public class S1Shape extends Shape {
 
-    private int rowCount;
     private Position position = Position.START;
-    private final int offset = 3;
-    private final int colorCode = 5;
-    private final boolean rotate = true;
-    private final int midPoint = 3;
-
-    private final int[][] shape = {
+    private int offset = 3;
+    private int colorCode = 5;
+    private boolean rotate = true;
+    private int midPoint = 3;
+    private int[][] shape = {
             {0,2,2},
             {2,2,0}
     };
 
     public S1Shape() {
-        this.rowCount = 0;
+        super.setPosition(position);
+        super.setOffset(offset);
+        super.setColorCode(colorCode);
+        super.setRotate(rotate);
+        super.setMidPoint(midPoint);
+        super.setShape(shape);
     }
 
-    @Override
-    public int[] getRow() {
-        return rowCount < getY() ? shape[rowCount++]:null;
-    }
-
-    @Override
-    public int getX() {
-        return shape[0].length;
-    }
-
-    @Override
-    public int getY() {
-        return shape.length;
-    }
-
-    @Override
-    public int getOffset() {
-        return this.offset;
-    }
-
-    @Override
-    public int getColorCode() {
-        return colorCode;
-    }
-
-    @Override
-    public boolean getRotate() {
-        return this.rotate;
-    }
-
-    @Override
-    public int getMidPoint() {
-        return this.midPoint;
-    }
-
-    @Override
-    public Position getPosition() {
-        return this.position;
-    }
-
-    @Override
-    public void setPosition(Position pos) {
-        this.position = pos;
-    }
-
-    @Override
-    public int[][] getShape() {
-        return shape;
-    }
 
 }

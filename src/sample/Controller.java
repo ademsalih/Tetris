@@ -56,10 +56,6 @@ public class Controller implements Initializable{
         tetrisBoard.assignColors();
         tetrisBoard.drawTetrisField();
 
-        /*for (int i = 0; i < 9; i++) {
-            tetrisBoard.cellOn(i,5,2);
-        }*/
-
         nextShapeField = new NextShapeField(nextCanvas,20);
         nextShapeField.assignColor(tetrisBoard.getColorMapLight(),tetrisBoard.getColorMapMidTone(),tetrisBoard.getColorMapDark());
         nextShapeField.emptyField();
