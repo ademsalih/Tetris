@@ -3,6 +3,7 @@ package sample;
 import sample.Shapes.Shape;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Stack;
 
 public class CurrentShape {
@@ -42,6 +43,82 @@ public class CurrentShape {
         this.onBoard = false;
     }
 
+    /**
+     * Find the cells of the shape to check if shape moves upwards.
+     * */
+    public ArrayList<int[]> activeCellsTop() {
+        ArrayList<int[]> active = new ArrayList<>();
+
+        for (int[] a : list) {
+            int[] check = new int[]{a[0],a[1]-1};
+            if (!contains(check)) {
+                active.add(a);
+            }
+        }
+
+        return active;
+    }
+
+    /**
+     * Finds the cells of the shape that needs to be checked in
+     * touchingShapeBottom().
+     * */
+    public ArrayList<int[]> activeCellsBottom() {
+        ArrayList<int[]> active = new ArrayList<>();
+        for (int[] a : list) {
+            int[] check = new int[]{a[0],a[1]+1};
+            if (!contains(check)) {
+                active.add(a);
+            }
+        }
+
+        return active;
+    }
+
+    /**
+     * Finds the cells of the shape that needs to be checked in
+     * touchingShapeLeft().
+     * */
+    public ArrayList<int[]> activeCellsLeft() {
+        ArrayList<int[]> active = new ArrayList<>();
+        for (int[] a : list) {
+            int[] check = new int[]{a[0]-1,a[1]};
+            if (!contains(check)) {
+                active.add(a);
+            }
+        }
+
+        return active;
+    }
+
+    /**
+     * Finds the cells of the shape that needs to be checked in
+     * touchingShapeRight().
+     * */
+    public ArrayList<int[]> activeCellsRight() {
+
+        ArrayList<int[]> active = new ArrayList<>();
+
+        for (int[] a : list) {
+
+            int[] check = new int[]{a[0]+1,a[1]};
+
+            if (!contains(check)) {
+                active.add(a);
+            }
+        }
+
+        return active;
+    }
+
+    /**
+     * Method that checks if ArrayList of currShape contains a pair {x,y}.
+     * @param array
+     * */
+    public boolean contains(int[] a) {
+        return list.stream().filter(i -> Arrays.equals(i,a)).findAny().isPresent();
+    }
+
     public void offsetPlusOne() {
         offset+=1;
     }
@@ -72,36 +149,6 @@ public class CurrentShape {
 
     public void setLanded(boolean status) {
         this.landed = status;
-    }
-
-    public void goOneDown2() {
-        // etter at den er lagt inn
-        if (rowsNotAdded < rows) {
-
-            for (int[] a : list) {
-
-                if (a[1] + 1 == y) {
-
-                    landed = true;
-                }
-
-                a[1] += 1;
-            }
-        }
-
-        // mens figuren legges inn
-        if (rowsNotAdded > 0) {
-            int[] row = shapeStack.pop();
-            for (int i = 0; i < row.length; i++) {
-
-                if (row[i] > 0) {
-                    int[] cell = {offset+i,level};
-                    list.add(cell);
-                }
-            }
-            rowsNotAdded--;
-        }
-
     }
 
     public void goOneDown() {
@@ -371,10 +418,6 @@ public class CurrentShape {
     public ArrayList<int[]> get() {
         return list;
     }
-
-    /*public ArrayList<int[]> get9() {
-        return shapeStack.peek();
-    }*/
 
     public int getColor() {
         return this.color;
