@@ -417,10 +417,10 @@ public class TetrisBoard {
      * */
     public void balanceListForRemoval(ArrayList<Integer> list) {
         Integer addOn = 0;
-
         for (int i = 0; i < list.size(); i++) {
+            Integer curr = list.get(i);
             list.remove(i);
-            list.add(i,list.get(i) + addOn);
+            list.add(i,curr+addOn);
             addOn++;
         }
     }
