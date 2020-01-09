@@ -43,6 +43,47 @@ public class CurrentShape {
         this.onBoard = false;
     }
 
+
+    /**
+     * Checks if the current shape is touching the bottom wall.
+     * */
+    public boolean touchingBottomWall() {
+        for (int[] a : activeCellsBottom()) {
+            if (a[1] + 1 == Controller.instance.board.getY()) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the current shape is touching another shape at the bottom.
+     * */
+    public boolean touchingShapeBottom() {
+        for (int[] a : activeCellsBottom()) {
+            if (Controller.instance.board.cellIsOn(a[0],a[1] + 1)) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the current shape is touching another shape to the right.
+     * */
+    public boolean touchingShapeRight() {
+        for (int[] a : activeCellsRight()) {
+            if (Controller.instance.board.cellIsOn(a[0] + 1,a[1])) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the current shape is touching another shape to the left.
+     * */
+    public boolean touchingShapeLeft() {
+        for (int[] a : activeCellsLeft()) {
+            if (Controller.instance.board.cellIsOn(a[0] - 1,a[1])) return true;
+        }
+        return false;
+    }
+
     /**
      * Find the cells of the shape to check if shape moves upwards.
      * */

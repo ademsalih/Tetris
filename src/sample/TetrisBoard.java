@@ -4,8 +4,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class TetrisBoard {
 
@@ -187,7 +187,7 @@ public class TetrisBoard {
 
         try {
             board[x][y] = 0;
-        } catch (ArrayIndexOutOfBoundsException aioobe) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             //System.out.println("Cannot turn cell off");
         }
 
@@ -260,6 +260,169 @@ public class TetrisBoard {
 
     }
 
-    // Methods for turning on cells with style (i.e. shadow and gloss)
+    public void blinkRemove(ArrayList<Integer> lines, int[][] board) {
+
+        ArrayList<Integer> colorCodes = new ArrayList<>();
+
+        for (int i = 0; i < lines.size(); i++) {
+            for (int j = 0; j < getX(); j++) {
+                colorCodes.add(getColorCode(j,lines.get(i)));
+            }
+        }
+
+        int blinkSpeed = 47;
+        Timer blinkTimer = new Timer();
+
+        System.out.println("right before timer...");
+
+        blinkTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Remove
+                for (int i = 0; i < lines.size(); i++) {
+
+                    for (int j = 0; j < getX(); j++) {
+
+                        cellOffNoUpdateBoard(j,lines.get(i));
+                    }
+                }
+
+                drawTetrisField();
+            }
+        },0);
+
+        blinkTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Add
+                for (int i = 0; i < lines.size(); i++) {
+
+                    for (int j = 0; j < getX(); j++) {
+
+                        cellOnNoUpdateBoard(j,lines.get(i),colorCodes.get(i*10 + j));
+                    }
+                }
+                drawTetrisField();
+            }
+        },1*blinkSpeed);
+
+        blinkTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Remove
+                for (int i = 0; i < lines.size(); i++) {
+
+                    for (int j = 0; j < getX(); j++) {
+
+                        cellOffNoUpdateBoard(j,lines.get(i));
+                    }
+                }
+
+                drawTetrisField();
+            }
+        },2*blinkSpeed);
+
+        blinkTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Add
+                for (int i = 0; i < lines.size(); i++) {
+
+                    for (int j = 0; j < getX(); j++) {
+
+                        cellOnNoUpdateBoard(j,lines.get(i),colorCodes.get(i*10 + j));
+                    }
+                }
+
+                drawTetrisField();
+            }
+        },3*blinkSpeed);
+
+        blinkTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Remove
+                for (int i = 0; i < lines.size(); i++) {
+
+                    for (int j = 0; j < getX(); j++) {
+
+                        cellOffNoUpdateBoard(j,lines.get(i));
+                    }
+                }
+
+                drawTetrisField();
+            }
+        },4*blinkSpeed);
+
+        blinkTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Add
+                for (int i = 0; i < lines.size(); i++) {
+
+                    for (int j = 0; j < getX(); j++) {
+
+                        cellOnNoUpdateBoard(j,lines.get(i),colorCodes.get(i*10 + j));
+                    }
+                }
+
+                drawTetrisField();
+            }
+        },5*blinkSpeed);
+
+        blinkTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                balanceListForRemoval(lines);
+
+                // Removal of full lines
+                for (int k = 0; k < lines.size(); k++) {
+                    int destinationLine = lines.get(k);
+                    int sourceLine = destinationLine - 1;
+                    for (int i = destinationLine; i > 0; i--) {
+                        for (int j = 0; j < board.length; j++) {
+
+                            board[j][destinationLine] = board[j][sourceLine];
+                        }
+                        destinationLine--;
+                        sourceLine--;
+                    }
+                }
+
+            }
+        },6*blinkSpeed);
+
+        blinkTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                drawTetrisField();
+
+                Controller.instance.newShapeWithDelay();
+                System.out.println("Done");
+            }
+        },(6*blinkSpeed) + 25);
+
+
+    }
+
+    /**
+     * Method that takes an ArrayList with lines that should be removed
+     * and adds 0,1,2... etc to indices 19,18,17... etc to adjust the lines that
+     * are awaits a removal.
+     *
+     * Example: Line 19,18 (last and second to last) will be removed. After
+     * line 19 is removed all rows above move one down and the next to be
+     * removed is line 18+1=19.
+     * */
+    public void balanceListForRemoval(ArrayList<Integer> list) {
+        Integer addOn = 0;
+
+        for (int i = 0; i < list.size(); i++) {
+            list.remove(i);
+            list.add(i,list.get(i) + addOn);
+            addOn++;
+        }
+    }
 
 }

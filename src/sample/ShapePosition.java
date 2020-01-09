@@ -34,40 +34,32 @@ public class ShapePosition {
     }
 
     public Position getNextRight(Position currentPosition) {
-
         Position nextPosition = null;
 
         switch (currentPosition) {
             case START: nextPosition = Position.RIGHT;
-            break;
-
+                break;
             case RIGHT: nextPosition = Position.MID;
-            break;
-
+                break;
             case MID: nextPosition = Position.LEFT;
-            break;
-
+                break;
             case LEFT: nextPosition = Position.START;
-            break;
+                break;
         }
 
         return nextPosition;
     }
 
     public Position getNextLeft(Position currentPosition) {
-
         Position nextPosition = null;
 
         switch (currentPosition) {
             case START: nextPosition = Position.LEFT;
                 break;
-
             case RIGHT: nextPosition = Position.START;
                 break;
-
             case MID: nextPosition = Position.RIGHT;
                 break;
-
             case LEFT: nextPosition = Position.MID;
                 break;
         }
