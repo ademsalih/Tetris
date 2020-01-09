@@ -25,7 +25,7 @@ public class TetrisBoard {
         this.tileSize = tileSize;
         this.xSpace = 0;
         this.ySpace = 2;
-        this.board = new int[x][y];
+        this.board = new int[y][x];
     }
 
     public int[][] getBoard() {
@@ -79,7 +79,7 @@ public class TetrisBoard {
 
     // Set color according to color code at x and y
     public int getColorCode(int x, int y) {
-        return board[x][y];
+        return board[y][x];
     }
 
     public Color getColorFromCode(int code) {
@@ -143,8 +143,7 @@ public class TetrisBoard {
 
     // Turn on individual cell at x and y
     public void cellOn(int x, int y) {
-
-        board[x][y] = 1;
+        board[y][x] = 1;
         drawTetrisField();
     }
 
@@ -152,9 +151,9 @@ public class TetrisBoard {
     public void cellOn(int x, int y, int colorCode) {
 
         try {
-            board[x][y] = colorCode;
+            board[y][x] = colorCode;
         } catch (ArrayIndexOutOfBoundsException aioobe) {
-            //System.out.println("Cannot turn cell on");
+            System.out.println("Cannot turn cell on");
         }
 
         drawTetrisField();
@@ -163,7 +162,7 @@ public class TetrisBoard {
     public void cellOnNoUpdateBoard(int x, int y, int colorCode) {
 
         try {
-            board[x][y] = colorCode;
+            board[y][x] = colorCode;
         } catch (ArrayIndexOutOfBoundsException aioobe) {
             //System.out.println("Cannot turn cell on");
         }
@@ -175,7 +174,7 @@ public class TetrisBoard {
     public void cellOff(int x, int y) {
 
         try {
-            board[x][y] = 0;
+            board[y][x] = 0;
         } catch (ArrayIndexOutOfBoundsException aioobe) {
             //System.out.println("Cannot turn cell off");
         }
@@ -186,7 +185,7 @@ public class TetrisBoard {
     public void cellOffNoUpdateBoard(int x, int y) {
 
         try {
-            board[x][y] = 0;
+            board[y][x] = 0;
         } catch (ArrayIndexOutOfBoundsException e) {
             //System.out.println("Cannot turn cell off");
         }
@@ -201,27 +200,12 @@ public class TetrisBoard {
         return this.y;
     }
 
-    /////////////////////////////////////////////////////////////
     public boolean cellIsOn(int x, int y) {
-
-        if (isInBoard(x,y)) {
-            if (board[x][y] > 0) {
-                return true;
-            }
-        }
-
-        return false;
+        return isInBoard(x,y) ? board[y][x] > 0 : false;
     }
-    //////////////////////////////////////////////////////////////
-
 
     public boolean isInBoard(int x, int y) {
-
-        if (x > -1 && x < this.x && y > -1 && y < this.y) {
-            return true;
-        }
-
-        return false;
+        return -1 < x && x < this.x && -1 < y && y < this.y;
     }
 
     public int boardLeftDifference(int x) {
@@ -257,6 +241,14 @@ public class TetrisBoard {
             }
 
         }
+
+    }
+
+    public  void blinkRemove(ArrayList<Integer> rows) {
+        int speed = 47;
+
+        ArrayList<int[]> beforeState = new ArrayList<>();
+        for (Integer i : rows) beforeState.add(board[i]);
 
     }
 

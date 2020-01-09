@@ -187,7 +187,7 @@ public class Controller implements Initializable{
 
     public void checkForRemovableLines() {
         if (removableLines()) {
-            board.blinkRemove(getRemovableLines(board.getBoard()),board.getBoard());
+            board.blinkRemove(getRemovableLines(board.getBoard()));
         } else {
             newShapeWithDelay();
         }
@@ -300,13 +300,13 @@ public class Controller implements Initializable{
      * be removed by using a for-loop. The lines that can be removed
      * are added to an ArrayList, reversed and returned.
      */
-    public ArrayList<Integer> getRemovableLines(int[][] board) {
+    public ArrayList<Integer> getRemovableLines2(int[][] board) {
         ArrayList<Integer> lines = new ArrayList<>();
 
-        for (int i = 0; i < board[0].length; i++) {
+        for (int i = 0; i < board.length; i++) {
             boolean fullLine = true;
-            for (int j = 0; j < board.length; j++) {
-                if (board[j][i] == 0) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (board[i][j] == 0) {
                     fullLine = false;
                     continue;
                 }
@@ -318,6 +318,14 @@ public class Controller implements Initializable{
 
         Collections.reverse(lines);
 
+        return lines;
+    }
+
+    public ArrayList<Integer> getRemovableLines(int[][] board) {
+        ArrayList<Integer> lines = new ArrayList<>();
+        for (int i = 0; i < board.length; i++) {
+            if (Arrays.stream(board[i]).filter(j -> j > 0).findAny().isPresent()) lines.add(i);
+        }
         return lines;
     }
 
