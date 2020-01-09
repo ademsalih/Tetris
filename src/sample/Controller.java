@@ -51,6 +51,18 @@ public class Controller implements Initializable{
         board = new TetrisBoard(canvas,20.0);
         shapePosition = new ShapePosition();
 
+
+        board.cellOn(0,21,1);
+        board.cellOn(1,21,1);
+        board.cellOn(2,21,1);
+        board.cellOn(3,21,1);
+        board.cellOn(4,21,1);
+        board.cellOn(5,21,1);
+        board.cellOn(6,21,1);
+        board.cellOn(7,21,1);
+        board.cellOn(8,21,1);
+        board.cellOn(9,21,1);
+
         board.assignColors();
         board.drawTetrisField();
 
@@ -324,8 +336,10 @@ public class Controller implements Initializable{
     public ArrayList<Integer> getRemovableLines(int[][] board) {
         ArrayList<Integer> lines = new ArrayList<>();
         for (int i = 0; i < board.length; i++) {
-            if (Arrays.stream(board[i]).filter(j -> j > 0).findAny().isPresent()) lines.add(i);
+            if (Arrays.stream(board[i]).filter(j -> j == 0).count() == 0) lines.add(i);
         }
+
+        Collections.reverse(lines);
         return lines;
     }
 
