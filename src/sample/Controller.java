@@ -111,7 +111,6 @@ public class Controller implements Initializable{
         instantDropExecuted = false;
         Shape shape = shapeFactory(shapeCode);
 
-
         currShape = new CurrentShape(
                 board.getX(),
                 board.getY(),
@@ -124,13 +123,14 @@ public class Controller implements Initializable{
 
         currShape.addShape(shape);
         currShape.setColor(shape.getColorCode());
+
+        currShape.goOneDown();
         currShape.goOneDown();
 
+
         if (gameOver()) {
-            System.out.println("Game Over!");
             stopGameExecution();
-        } else                                                                                {
-            System.out.println("Game!");
+        } else {
             nextShapeCode = getRandomInt(7);
             setNextShape(nextShapeCode);
 
@@ -188,9 +188,6 @@ public class Controller implements Initializable{
     public void checkForRemovableLines() {
         if (removableLines()) {
             board.blinkRemove(getRemovableLines(board.getBoard()),board.getBoard());
-
-
-            System.out.println("Continues...");
         } else {
             newShapeWithDelay();
         }
@@ -284,10 +281,8 @@ public class Controller implements Initializable{
 
     // Removes shape from board by changing array elements to 0.
     public void removeShape() {
-
-        for (int i = 0; i < currShape.get().size(); i++) {
-            int[] cell = currShape.get().get(i);
-            board.cellOff(cell[0],cell[1]);
+        for (int[] i : currShape.get()) {
+            board.cellOff(i[0],i[1]);
         }
     }
 
@@ -295,10 +290,8 @@ public class Controller implements Initializable{
      * Addes shape to board by changing array elements to shape number.
      */
     public void reAddShape() {
-
-        for (int i = 0; i < currShape.get().size(); i++) {
-            int[] cell = currShape.get().get(i);
-            board.cellOn(cell[0],cell[1],currShape.getColor());
+        for (int[] i : currShape.get()) {
+            board.cellOn(i[0],i[1],currShape.getColor());
         }
     }
 
@@ -341,10 +334,10 @@ public class Controller implements Initializable{
      * */
     public void instantDrop() {
         timeline.stop();
-        instantDropExecuted = true;
         removeShape();
 
         while (!currShape.hasLanded()) {
+            instantDropExecuted = true;
             currShape.goOneDown();
             checkIfLanded();
         }
@@ -394,12 +387,12 @@ public class Controller implements Initializable{
             }
 
             ArrayList<int[]> beforeKick = clone(currShape.get());
-            kick(currShape.get(),rotationTable[0][0],rotationTable[0][1]);
+            currShape.kick(currShape.get(),rotationTable[0][0],rotationTable[0][1]);
 
             if (misplacedCells(currShape.get()) > 0) {
                 currShape.set(clone(beforeKick));
                 for (int i = 1; i < rotationTable.length; i++) {
-                    kick(currShape.get(),rotationTable[i][0],rotationTable[i][1]);
+                    currShape.kick(currShape.get(),rotationTable[i][0],rotationTable[i][1]);
                     if (misplacedCells(currShape.get()) == 0) {
                         break;
                     } else {
@@ -428,24 +421,6 @@ public class Controller implements Initializable{
         for (int[] a : shape) clone.add(a.clone());
 
         return clone;
-    }
-
-    /**
-     * Extra method used in rotateShape(Direction direction) to kick shape
-     * through SRS kicks.
-     * @param shape
-     * @param x
-     * @param y
-     * */
-    public void kick(ArrayList<int[]> shape, int x, int y) {
-        for (int i = 0; i < shape.size(); i++) {
-            int[] tmp = shape.get(i);
-
-            tmp[0] += x;
-            tmp[1] += -y;
-
-            shape.set(i,tmp);
-        }
     }
 
     /**

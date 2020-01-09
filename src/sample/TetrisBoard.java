@@ -273,7 +273,6 @@ public class TetrisBoard {
         int blinkSpeed = 47;
         Timer blinkTimer = new Timer();
 
-        System.out.println("right before timer...");
 
         blinkTimer.schedule(new TimerTask() {
             @Override
@@ -399,7 +398,6 @@ public class TetrisBoard {
                 drawTetrisField();
 
                 Controller.instance.newShapeWithDelay();
-                System.out.println("Done");
             }
         },(6*blinkSpeed) + 25);
 

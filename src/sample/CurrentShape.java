@@ -43,6 +43,24 @@ public class CurrentShape {
         this.onBoard = false;
     }
 
+    /**
+     * Extra method used in rotateShape(Direction direction) to kick shape
+     * through SRS kicks.
+     * @param shape
+     * @param x
+     * @param y
+     * */
+    public void kick(ArrayList<int[]> shape, int x, int y) {
+        for (int i = 0; i < shape.size(); i++) {
+            int[] tmp = shape.get(i);
+
+            tmp[0] += x;
+            tmp[1] += -y;
+
+            shape.set(i,tmp);
+        }
+    }
+
 
     /**
      * Checks if the current shape is touching the bottom wall.
