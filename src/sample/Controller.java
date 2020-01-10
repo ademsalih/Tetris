@@ -13,7 +13,6 @@ import sample.Shapes.*;
 
 import java.net.URL;
 import java.util.*;
-import java.util.function.Predicate;
 
 public class Controller implements Initializable{
 
@@ -51,20 +50,8 @@ public class Controller implements Initializable{
         board = new TetrisBoard(canvas,20.0);
         shapePosition = new ShapePosition();
 
-
-        board.cellOn(0,21,1);
-        board.cellOn(1,21,1);
-        board.cellOn(2,21,1);
-        board.cellOn(3,21,1);
-        board.cellOn(4,21,1);
-        board.cellOn(5,21,1);
-        board.cellOn(6,21,1);
-        board.cellOn(7,21,1);
-        board.cellOn(8,21,1);
-        board.cellOn(9,21,1);
-
         board.assignColors();
-        board.drawTetrisField();
+        board.draw();
 
         nextShapeField = new NextShapeField(nextCanvas,20);
         nextShapeField.assignColor(board.getColorMapLight(), board.getColorMapMidTone(), board.getColorMapDark());
@@ -148,7 +135,7 @@ public class Controller implements Initializable{
 
             reAddShape();
             checkIfLanded();
-            board.drawTetrisField();
+            board.draw();
             timeline.play();
         }
     }
@@ -200,6 +187,7 @@ public class Controller implements Initializable{
     public void checkForRemovableLines() {
         if (removableLines()) {
             board.blinkRemove(getRemovableLines(board.getBoard()));
+            newShapeAfterWaiting(45*7);
         } else {
             newShapeWithDelay();
         }
@@ -294,7 +282,7 @@ public class Controller implements Initializable{
     // Removes shape from board by changing array elements to 0.
     public void removeShape() {
         for (int[] i : currShape.get()) {
-            board.cellOff(i[0],i[1]);
+            board.cellOff(i[0],i[1],true);
         }
     }
 
@@ -303,7 +291,7 @@ public class Controller implements Initializable{
      */
     public void reAddShape() {
         for (int[] i : currShape.get()) {
-            board.cellOn(i[0],i[1],currShape.getColor());
+            board.cellOn(i[0],i[1],currShape.getColor(),true);
         }
     }
 
@@ -312,27 +300,6 @@ public class Controller implements Initializable{
      * be removed by using a for-loop. The lines that can be removed
      * are added to an ArrayList, reversed and returned.
      */
-    public ArrayList<Integer> getRemovableLines2(int[][] board) {
-        ArrayList<Integer> lines = new ArrayList<>();
-
-        for (int i = 0; i < board.length; i++) {
-            boolean fullLine = true;
-            for (int j = 0; j < board[0].length; j++) {
-                if (board[i][j] == 0) {
-                    fullLine = false;
-                    continue;
-                }
-            }
-            if (fullLine) {
-                lines.add(i);
-            }
-        }
-
-        Collections.reverse(lines);
-
-        return lines;
-    }
-
     public ArrayList<Integer> getRemovableLines(int[][] board) {
         ArrayList<Integer> lines = new ArrayList<>();
         for (int i = 0; i < board.length; i++) {
@@ -367,6 +334,13 @@ public class Controller implements Initializable{
         reAddShape();
         checkForRemovableLines();
     }
+
+
+
+    // TODO: Use built-in clone method
+
+
+
 
     /**
      * Rotates shapes in the directions of the parameter.

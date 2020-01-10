@@ -4,8 +4,11 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-import java.lang.reflect.Array;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 public class TetrisBoard {
 
@@ -32,7 +35,7 @@ public class TetrisBoard {
         return this.board;
     }
 
-    public void drawTetrisField() {
+    public void draw() {
         for(int i = 2; i < y; i++) {
 
             for(int j = 0; j < x; j++) {
@@ -136,61 +139,29 @@ public class TetrisBoard {
     public void clearBoard() {
         for (int i = 0; i < y; i++) {
             for (int j = 0; j < x; j++) {
-                cellOff(j,i);
+                cellOff(j,i,true);
             }
         }
     }
 
-    // Turn on individual cell at x and y
-    public void cellOn(int x, int y) {
-        board[y][x] = 1;
-        drawTetrisField();
-    }
-
-    // Turn on individual cell at x and y and specify color
-    public void cellOn(int x, int y, int colorCode) {
-
+    public void cellOn(int x, int y, int colorCode, boolean update) {
         try {
             board[y][x] = colorCode;
         } catch (ArrayIndexOutOfBoundsException aioobe) {
             System.out.println("Cannot turn cell on");
         }
-
-        drawTetrisField();
+        if (update) draw();
     }
 
-    public void cellOnNoUpdateBoard(int x, int y, int colorCode) {
-
-        try {
-            board[y][x] = colorCode;
-        } catch (ArrayIndexOutOfBoundsException aioobe) {
-            //System.out.println("Cannot turn cell on");
-        }
-
-    }
-
-
-    // Turn off cell at x and y
-    public void cellOff(int x, int y) {
-
+    public void cellOff(int x, int y, boolean update) {
         try {
             board[y][x] = 0;
         } catch (ArrayIndexOutOfBoundsException aioobe) {
             //System.out.println("Cannot turn cell off");
         }
-
-        drawTetrisField();
+        if (update) draw();
     }
 
-    public void cellOffNoUpdateBoard(int x, int y) {
-
-        try {
-            board[y][x] = 0;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            //System.out.println("Cannot turn cell off");
-        }
-
-    }
 
     public int getX() {
         return this.x;
@@ -244,156 +215,48 @@ public class TetrisBoard {
 
     }
 
+    private ScheduledExecutorService ses = Executors.newScheduledThreadPool(4);
+    private ScheduledFuture<?> t;
+
+    // TODO: Merge together cellOn and cellOnUpdate
+
     public  void blinkRemove(ArrayList<Integer> rows) {
-        int speed = 47;
-
         ArrayList<int[]> beforeState = new ArrayList<>();
-        for (Integer i : rows) beforeState.add(board[i]);
+        for (Integer i : rows) beforeState.add(board[i].clone());
 
-    }
-
-    public void blinkRemove(ArrayList<Integer> lines, int[][] board) {
-
-        ArrayList<Integer> colorCodes = new ArrayList<>();
-
-        for (int i = 0; i < lines.size(); i++) {
-            for (int j = 0; j < getX(); j++) {
-                colorCodes.add(getColorCode(j,lines.get(i)));
-            }
-        }
-
-        int blinkSpeed = 47;
-        Timer blinkTimer = new Timer();
-
-
-        blinkTimer.schedule(new TimerTask() {
+        t = ses.scheduleWithFixedDelay(new Runnable() {
+            private int i = 0;
             @Override
             public void run() {
-                // Remove
-                for (int i = 0; i < lines.size(); i++) {
-
-                    for (int j = 0; j < getX(); j++) {
-
-                        cellOffNoUpdateBoard(j,lines.get(i));
-                    }
-                }
-
-                drawTetrisField();
-            }
-        },0);
-
-        blinkTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                // Add
-                for (int i = 0; i < lines.size(); i++) {
-
-                    for (int j = 0; j < getX(); j++) {
-
-                        cellOnNoUpdateBoard(j,lines.get(i),colorCodes.get(i*10 + j));
-                    }
-                }
-                drawTetrisField();
-            }
-        },1*blinkSpeed);
-
-        blinkTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                // Remove
-                for (int i = 0; i < lines.size(); i++) {
-
-                    for (int j = 0; j < getX(); j++) {
-
-                        cellOffNoUpdateBoard(j,lines.get(i));
-                    }
-                }
-
-                drawTetrisField();
-            }
-        },2*blinkSpeed);
-
-        blinkTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                // Add
-                for (int i = 0; i < lines.size(); i++) {
-
-                    for (int j = 0; j < getX(); j++) {
-
-                        cellOnNoUpdateBoard(j,lines.get(i),colorCodes.get(i*10 + j));
-                    }
-                }
-
-                drawTetrisField();
-            }
-        },3*blinkSpeed);
-
-        blinkTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                // Remove
-                for (int i = 0; i < lines.size(); i++) {
-
-                    for (int j = 0; j < getX(); j++) {
-
-                        cellOffNoUpdateBoard(j,lines.get(i));
-                    }
-                }
-
-                drawTetrisField();
-            }
-        },4*blinkSpeed);
-
-        blinkTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                // Add
-                for (int i = 0; i < lines.size(); i++) {
-
-                    for (int j = 0; j < getX(); j++) {
-
-                        cellOnNoUpdateBoard(j,lines.get(i),colorCodes.get(i*10 + j));
-                    }
-                }
-
-                drawTetrisField();
-            }
-        },5*blinkSpeed);
-
-        blinkTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-
-                balanceListForRemoval(lines);
-
-                // Removal of full lines
-                for (int k = 0; k < lines.size(); k++) {
-                    int destinationLine = lines.get(k);
-                    int sourceLine = destinationLine - 1;
-                    for (int i = destinationLine; i > 0; i--) {
-                        for (int j = 0; j < board.length; j++) {
-
-                            board[j][destinationLine] = board[j][sourceLine];
+                for (int y = 0; y < rows.size(); y++) {
+                    for (int x = 0; x < getX(); x++) {
+                        if (i % 2 == 0) {
+                            cellOff(x,rows.get(y),false);
+                        } else {
+                            cellOn(x,rows.get(y), beforeState.get(y)[x], false);
                         }
-                        destinationLine--;
-                        sourceLine--;
                     }
                 }
+                draw();
+                if (++i > 6) {
+                    t.cancel(false);
+                    balanceListForRemoval(rows);
 
+                    for (int y = 0; y < rows.size(); y++) {
+                        int dLine = rows.get(y);
+                        int sLine = dLine - 1;
+
+                        for (int i = dLine; i > 0; i--) {
+                            for (int j = 0; j < getX(); j++) {
+                                board[dLine][j] = board[sLine][j];
+                            }
+                            dLine--;sLine--;
+                        }
+                    }
+                    draw();
+                }
             }
-        },6*blinkSpeed);
-
-        blinkTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                drawTetrisField();
-
-                Controller.instance.newShapeWithDelay();
-            }
-        },(6*blinkSpeed) + 25);
-
-
+        }, 0, 45, TimeUnit.MILLISECONDS);
     }
 
     /**
