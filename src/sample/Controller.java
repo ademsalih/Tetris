@@ -81,7 +81,7 @@ public class Controller implements Initializable{
 
     public Shape shapeFactory(int shapeCode) {
         Shape shape = null;
-        switch (shapeCode) {
+        switch (1) {
             case 0: shape = new BlockShape(); break;
             case 1: shape = new IShape(); break;
             case 2: shape = new TShape(); break;
@@ -187,7 +187,8 @@ public class Controller implements Initializable{
     public void checkForRemovableLines() {
         if (removableLines()) {
             board.blinkRemove(getRemovableLines(board.getBoard()));
-            newShapeAfterWaiting(45*7);
+            newShapeAfterWaiting(board.blinkDuration());
+            System.out.println(board.blinkDuration());
         } else {
             newShapeWithDelay();
         }

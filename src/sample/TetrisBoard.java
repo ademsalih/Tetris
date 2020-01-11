@@ -14,6 +14,8 @@ public class TetrisBoard {
 
     private final int x = 10;
     private final int y = 22;
+    private final int blinkSpeed = 45;
+    private final int blinks = 3;
     private double tileSize;
     private double xSpace;
     private double ySpace;
@@ -22,6 +24,8 @@ public class TetrisBoard {
     public HashMap<Integer,Color> colorMapLight = new HashMap<Integer, Color>();
     public HashMap<Integer,Color> colorMapMidTone = new HashMap<Integer, Color>();
     public HashMap<Integer,Color> colorMapDark = new HashMap<Integer, Color>();
+    private ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+    private ScheduledFuture<?> t;
 
     public TetrisBoard(Canvas canvas, double tileSize) {
         this.graphicsContext = canvas.getGraphicsContext2D();
@@ -215,10 +219,10 @@ public class TetrisBoard {
 
     }
 
-    private ScheduledExecutorService ses = Executors.newScheduledThreadPool(4);
-    private ScheduledFuture<?> t;
+    public int blinkDuration() {
+        return blinkSpeed * ((blinks * 2)+1) + 35;
+    }
 
-    // TODO: Merge together cellOn and cellOnUpdate
 
     public  void blinkRemove(ArrayList<Integer> rows) {
         ArrayList<int[]> beforeState = new ArrayList<>();
@@ -238,7 +242,7 @@ public class TetrisBoard {
                     }
                 }
                 draw();
-                if (++i > 6) {
+                if (++i > blinks*2) {
                     t.cancel(false);
                     balanceListForRemoval(rows);
 
@@ -256,7 +260,7 @@ public class TetrisBoard {
                     draw();
                 }
             }
-        }, 0, 45, TimeUnit.MILLISECONDS);
+        }, 0, blinkSpeed, TimeUnit.MILLISECONDS);
     }
 
     /**
