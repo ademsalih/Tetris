@@ -21,9 +21,9 @@ public class TetrisBoard {
     private double ySpace;
     private GraphicsContext graphicsContext;
     private int[][] board;
-    public HashMap<Integer,Color> colorMapLight = new HashMap<Integer, Color>();
-    public HashMap<Integer,Color> colorMapMidTone = new HashMap<Integer, Color>();
-    public HashMap<Integer,Color> colorMapDark = new HashMap<Integer, Color>();
+    private HashMap<Integer,Color> colorMapLight = new HashMap<Integer, Color>();
+    private HashMap<Integer,Color> colorMapMidTone = new HashMap<Integer, Color>();
+    private HashMap<Integer,Color> colorMapDark = new HashMap<Integer, Color>();
     private ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
     private ScheduledFuture<?> t;
 
@@ -42,25 +42,19 @@ public class TetrisBoard {
 
     public void draw() {
         for(int i = 2; i < y; i++) {
-
             for(int j = 0; j < x; j++) {
 
                 int colorCode = getColorCode(j,i);
-
                 graphicsContext.setFill(colorMapLight.get(colorCode));
                 graphicsContext.fillRect(xSpace,ySpace,tileSize,tileSize);
 
-
                 if (colorCode != 0) {
-                    // dark
                     graphicsContext.setFill(colorMapDark.get(colorCode));
 
                     double[] x = {xSpace,xSpace+tileSize,xSpace+tileSize};
                     double[] y = {ySpace+tileSize,ySpace,ySpace+tileSize};
-
                     graphicsContext.fillPolygon(x,y,3);
 
-                    //middle
                     graphicsContext.setFill(colorMapMidTone.get(colorCode));
 
                     double offset = tileSize*0.2;
@@ -68,10 +62,7 @@ public class TetrisBoard {
 
                     graphicsContext.fillRect(offset+xSpace,offset+ySpace,smallSquare,smallSquare);
                 }
-
-
                 graphicsContext.strokeRect(xSpace,ySpace,tileSize,tileSize);
-                ///////////////////////////////////////////////////////////////////
                 xSpace+=tileSize;
             }
             xSpace=0;
@@ -79,13 +70,11 @@ public class TetrisBoard {
         }
         ySpace=2;
 
-
         graphicsContext.setStroke(new Color(0.25,0.25,0.25,1.0));
-        graphicsContext.strokeRect(0,0,200,400);
+        graphicsContext.strokeRect(0,0,x*tileSize,tileSize*(y-2));
         graphicsContext.setStroke(Color.BLACK);
     }
 
-    // Set color according to color code at x and y
     public int getColorCode(int x, int y) {
         return board[y][x];
     }
@@ -139,14 +128,6 @@ public class TetrisBoard {
         colorMapDark.put(5,new Color(0.055,0.729,0.086, 1.0));
         colorMapDark.put(6,new Color(0.431,0.02,0.471, 1.0));
         colorMapDark.put(7,new Color(0.62,0.09,0.09, 1.0));
-    }
-
-    public void clearBoard() {
-        for (int i = 0; i < y; i++) {
-            for (int j = 0; j < x; j++) {
-                cellOff(j,i,true);
-            }
-        }
     }
 
     public void cellOn(int x, int y, int colorCode, boolean update) {
@@ -220,14 +201,9 @@ public class TetrisBoard {
 
     }
 
-    public int blinkDuration() {
-        return blinkSpeed * ((blinks * 2)+1) + 35;
-    }
-
-
     public  void blinkRemove(ArrayList<Integer> rows) {
-        ArrayList<int[]> beforeState = new ArrayList<>();
-        for (Integer i : rows) beforeState.add(board[i].clone());
+        ArrayList<int[]> before = new ArrayList<>();
+        for (Integer i : rows) before.add(board[i].clone());
 
         t = ses.scheduleWithFixedDelay(new Runnable() {
             private int i = 0;
@@ -238,14 +214,17 @@ public class TetrisBoard {
                         if (i % 2 == 0) {
                             cellOff(x,rows.get(y),false);
                         } else {
-                            cellOn(x,rows.get(y), beforeState.get(y)[x], false);
+                            cellOn(x,rows.get(y), before.get(y)[x], false);
                         }
                     }
                 }
                 draw();
                 if (++i > blinks*2) {
                     t.cancel(false);
-                    balanceListForRemoval(rows);
+
+                    for (int i = 0; i < rows.size(); i++) {
+                        rows.set(i,rows.get(i)+i);
+                    }
 
                     for (int y = 0; y < rows.size(); y++) {
                         int dLine = rows.get(y);
@@ -264,23 +243,8 @@ public class TetrisBoard {
         }, 0, blinkSpeed, TimeUnit.MILLISECONDS);
     }
 
-    /**
-     * Method that takes an ArrayList with lines that should be removed
-     * and adds 0,1,2... etc to indices 19,18,17... etc to adjust the lines that
-     * are awaits a removal.
-     *
-     * Example: Line 19,18 (last and second to last) will be removed. After
-     * line 19 is removed all rows above move one down and the next to be
-     * removed is line 18+1=19.
-     * */
-    public void balanceListForRemoval(ArrayList<Integer> list) {
-        Integer addOn = 0;
-        for (int i = 0; i < list.size(); i++) {
-            Integer curr = list.get(i);
-            list.remove(i);
-            list.add(i,curr+addOn);
-            addOn++;
-        }
+    public int blinkDuration() {
+        return blinkSpeed * ((blinks * 2)+1) + 35;
     }
 
 }
