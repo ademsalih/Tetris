@@ -17,7 +17,6 @@ public class CurrentShape {
     private int rows;
     private int columns;
     private boolean landed;
-    private boolean frozen;
     private int x;
     private int y;
     private int color;
@@ -35,7 +34,6 @@ public class CurrentShape {
         this.level = 0;
         this.list = new ArrayList<>();
         this.landed = false;
-        this.frozen = false;
         this.rotation = rotate;
         this.midtpointInteger = midtpointInteger;
         this.position = position;
@@ -172,7 +170,7 @@ public class CurrentShape {
 
     /**
      * Method that checks if ArrayList of currShape contains a pair {x,y}.
-     * @param array
+     * @param a
      * */
     public boolean contains(int[] a) {
         return list.stream().filter(i -> Arrays.equals(i,a)).findAny().isPresent();
@@ -245,14 +243,6 @@ public class CurrentShape {
         }
 
         return true;
-    }
-
-    public boolean isFrozen() {
-        return frozen;
-    }
-
-    public void freeze() {
-        frozen = true;
     }
 
     public void goOneLeft() {

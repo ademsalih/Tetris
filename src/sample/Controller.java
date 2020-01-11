@@ -186,9 +186,9 @@ public class Controller implements Initializable{
 
     public void checkForRemovableLines() {
         if (removableLines()) {
+            currShape.setRotation(false);
             board.blinkRemove(getRemovableLines(board.getBoard()));
             newShapeAfterWaiting(board.blinkDuration());
-            System.out.println(board.blinkDuration());
         } else {
             newShapeWithDelay();
         }
