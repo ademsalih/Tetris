@@ -12,9 +12,9 @@ import java.util.concurrent.TimeUnit;
 
 public class TetrisBoard {
 
-    private final int x = 10;
-    private final int y = 22;
-    private final int blinkSpeed = 45;
+    private int x = 10;
+    private int y = 20;
+    private final int blinkSpeed = 48;
     private final int blinks = 3;
     private double tileSize;
     private double xSpace;
@@ -32,6 +32,7 @@ public class TetrisBoard {
         this.tileSize = tileSize;
         this.xSpace = 0;
         this.ySpace = 2;
+        this.y = this.y + 2;
         this.board = new int[y][x];
     }
 

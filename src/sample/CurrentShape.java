@@ -26,11 +26,10 @@ public class CurrentShape {
     private Position position;
     private Shape type;
 
-
-    public CurrentShape(int x, int y,int offset, boolean rotate, int midtpointInteger, Position position, Shape shapeType) {
+    public CurrentShape(int x, int y, boolean rotate, int midtpointInteger, Position position, Shape shapeType) {
         this.x = x - 1;
         this.y = y - 1;
-        this.offset = offset;
+        this.offset = x/2 - shapeType.getX()/2;
         this.level = 0;
         this.list = new ArrayList<>();
         this.landed = false;

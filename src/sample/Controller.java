@@ -99,7 +99,7 @@ public class Controller implements Initializable{
      */
     public int getRandomInt(int limit) {
         Random random = new Random();
-        return random.nextInt(limit);
+        return random.ints(0,limit).findFirst().getAsInt();
     }
 
     /**
@@ -113,7 +113,6 @@ public class Controller implements Initializable{
         currShape = new CurrentShape(
                 board.getX(),
                 board.getY(),
-                shape.getOffset(),
                 shape.getRotate(),
                 shape.getMidPoint(),
                 shape.getPosition(),
