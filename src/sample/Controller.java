@@ -79,9 +79,9 @@ public class Controller implements Initializable{
         nextShapeField.setShape(shape.getShape(),shape.getColorCode());
     }
 
-    public Shape shapeFactory(int shapeCode) {
+    public Shape shapeFactory(int code) {
         Shape shape = null;
-        switch (1) {
+        switch (code) {
             case 0: shape = new BlockShape(); break;
             case 1: shape = new IShape(); break;
             case 2: shape = new TShape(); break;

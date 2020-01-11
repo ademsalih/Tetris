@@ -8,7 +8,7 @@ public class S2Shape extends Shape {
     private int offset = 3;
     private int colorCode = 7;
     private boolean rotate = true;
-    private int midPoint = 1;
+    private int midPoint = 2;
     private int[][] shape = {
             {2,2,0},
             {0,2,2}
